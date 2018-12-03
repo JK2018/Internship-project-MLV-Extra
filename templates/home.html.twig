@@ -1,14 +1,27 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
+
+
+{% extends 'base.html.twig' %}
+
+   
+        
+        {% block title %}Welcome!{% endblock %}
+        
         {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
+
+    
         {% block body %} 
-        <h1> blablabla </h1>
+<div class="container">
+<div class="jumbotron mt-3">
+        <h1 class="display-3">Bienvenu sur ¨nom du site¨(home twig)</h1>
+        <p class="lead">description du site (home twig) ex: nous mettns en relation blablabla</p>
+        <hr class="my-4">
+        <p>deuxieme descriptif (home twig)</p>
+        <p class="lead">
+                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+        </p>
+</div>        
+</div>
+
         {% endblock %}
         {% block javascripts %}{% endblock %}
-    </body>
-</html>
+    
