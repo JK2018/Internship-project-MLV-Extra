@@ -4,24 +4,110 @@
 
    
         
-        {% block title %}Welcome!{% endblock %}
-        
-        {% block stylesheets %}{% endblock %}
+{% block title %}Bienvenue!{% endblock %}  
+{% block stylesheets %}{% endblock %}
 
     
-        {% block body %} 
-<div class="container">
-<div class="jumbotron mt-3">
-        <h1 class="display-3">Bienvenu sur ¨nom du site¨(home twig)</h1>
-        <p class="lead">description du site (home twig) ex: nous mettns en relation blablabla</p>
-        <hr class="my-4">
-        <p>deuxieme descriptif (home twig)</p>
-        <p class="lead">
-                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-        </p>
-</div>        
-</div>
+{% block body %} 
+        <div class="container">
+                <div class="jumbotron mt-3">
+                        <h1 class="display-3">Bienvenu sur MLV Xtra!</h1>
+                        <p class="lead">description du site (home twig) ex: nous mettns en relation blablabla</p>
+                        <hr class="my-4">
+                        <p>deuxieme descriptif (home twig)</p>
+                        <p class="lead">
+                                <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
+                        </p>
+                </div>  
+        <h2 class="h1 mb-3 mt-3"> Nos magasins star</h2>
 
-        {% endblock %}
+        {# FIRST BLOCK OF STAR CARDS #}
+                <div class="row">
+                        <div class="col-md-4">
+                                <div class="card bg-light mb-3">
+                                        <div class="card-header text-center">
+                                        3 jour(s), <strong>4 heures / jour</strong> <br>
+                                        <small> pas encore noté </small>
+                                        </div>
+                                        <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
+                                        <div class="card-body">
+                                        <h4 class="card-title">
+                                        job de fou!
+                                        </h4>
+                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
+                                        <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="card bg-light mb-3">
+                                        <div class="card-header text-center">
+                                        3 jour(s), <strong>4 heures / jour</strong> <br>
+                                        <small> pas encore noté </small>
+                                        </div>
+                                        <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
+                                        <div class="card-body">
+                                        <h4 class="card-title">
+                                        job de fou!
+                                        </h4>
+                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
+                                        <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col-md-4">
+                                <div class="card bg-light mb-3">
+                                        <div class="card-header text-center">
+                                        3 jour(s), <strong>4 heures / jour</strong> <br>
+                                        <small> pas encore noté </small>
+                                        </div>
+                                        <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
+                                        <div class="card-body">
+                                        <h4 class="card-title">
+                                        job de fou!
+                                        </h4>
+                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
+                                        <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+        <h2 class="h1 mt-3 mb-3"> Nos employés star</h2>
+
+        {# SECOND BLOCK OF STAR CARDS #}
+                <div class="row">
+                        <div class="col">
+                                <div class="card border-secondary mb-3">
+                                        <div class="card-body">
+                                                <h4 class="card-title"> nom de l'agent </h4>
+                                                <hr>
+                                                <div class="card-text">
+                                                        <img src="http://placehold.it/64x64" alt="Avatar de JK" class="float-left mr-3">
+                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, assumenda.</p>
+                                                        <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                        <div class="col">
+                                <div class="card border-secondary mb-3">
+                                        <div class="card-body">
+                                                <h4 class="card-title"> nom de l'agent </h4>
+                                                <hr>
+                                                <div class="card-text">
+                                                        <img src="http://placehold.it/64x64" alt="Avatar de JK" class="float-left mr-3">
+                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, assumenda.</p>
+                                                        <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                </div>
+                                        </div>
+                                </div>
+                        </div>
+                </div>
+
+
+        </div>
+
+{% endblock %}
         {% block javascripts %}{% endblock %}
     

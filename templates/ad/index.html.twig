@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Toutes nos offres!{% endblock %}
+
+{% block body %}
+<div class="container mt-5 mb-5">
+<h1> Voici toutes nos offres du moment! </h1>
+<div class="row">
+{% for i in 0..20 %}
+
+    <div class="col-md-4">
+            <div class="card bg-light mb-3">
+                    <div class="card-header text-center">
+                    3 jour(s), <strong>4 heures / jour</strong> <br>
+                    <small> pas encore noté </small>
+                    </div>
+                    <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
+                    <div class="card-body">
+                    <h4 class="card-title">
+                    job de fou!
+                    </h4>
+                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
+                    <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                    </div>
+            </div>
+    </div>
+
+{% endfor %}
+</div>
+</div>
+{% endblock %}
