@@ -6,21 +6,21 @@
 <div class="container mt-5 mb-5">
 <h1> Voici toutes nos offres du moment! </h1>
 <div class="row">
-{% for i in 0..20 %}
+{% for ad in ads %}
 
     <div class="col-md-4">
             <div class="card bg-light mb-3">
                     <div class="card-header text-center">
-                    3 jour(s), <strong>4 heures / jour</strong> <br>
+                    {{ad.daysPerMission}} jour(s), <strong>{{ad.hoursPerDay}} heures / jour</strong> <br>
                     <small> pas encore noté </small>
                     </div>
-                    <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
+                    <img src="{{ad.coverImage}}" alt="image du magasin" style="height: 200px; width:100%; display:block;">
                     <div class="card-body">
                     <h4 class="card-title">
-                    job de fou!
+                    {{ad.title}}
                     </h4>
-                    <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                    <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                    <p class="card-text">{{ad.introduction}}</p>
+                    <a href="/ads/{{ad.slug}}" class="btn btn-secondary">Consulter l'offre!</a>
                     </div>
             </div>
     </div>

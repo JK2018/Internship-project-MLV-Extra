@@ -1,0 +1,66 @@
+
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ad.title}} {% endblock %}
+
+{% block body %}
+
+<div class="ad-title" style="background-image: url({{ad.coverImage}})">
+    <div class="container mt-5 mb-5">
+        <h1> {{ad.title}} </h1>
+        <p>{{ad.introduction}}</p>
+        <p class="h2"> <strong> Extra de {{ad.daysPerMission}} jour(s)</strong> a raison de <strong>{{ad.hoursPerDay}}</strong></p>
+        <a href="#" class="btn btn-primary">Réserver !</a>
+    </div>
+</div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mb-3">
+            {{ad.content | raw}}
+            {# ------------- CAROUSEL ------------ #}
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                {% for image in ad.images %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+                {% endfor %}
+            </ol>   
+            <div class="carousel-inner">
+                {% for image in ad.images %}
+                    <div class="carousel-item {% if loop.first %}active{% endif %}">
+                        <img class="d-block w-100" src="{{ image.url }}" alt="First slide">
+                    </div>
+                {% endfor %}
+            </div>
+            
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+            </div>
+        </div>
+        <div class="col">
+            <div class="row">
+                <div class="col-4">
+                    <img src="http://placehole.it/64x64" alt"Photo de profil">
+                </div>
+                <div class="col">
+                    <h3> NOM DE LA PERSONNE</h3>
+                    <span class="badge badge-primary"> NBR D ANNONCES DE CETTE PERSONNE</span>
+                </div>
+            </div>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus mollitia atque ullam quidem dignissimos fugiat numquam cum dolorem dolorum nisi?</p>
+            <p>Pariatur dignissimos sapiente non dicta possimus id magnam, explicabo reiciendis eaque voluptates. Alias exercitationem ad rem ducimus neque? Nesciunt, similique.</p>
+        </div>
+    </div>
+</div>
+
+
+
+
+ 
+{% endblock %}
