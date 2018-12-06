@@ -4,41 +4,21 @@
         <meta charset="UTF-8">
         <title>MLV Xtra - {% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/app.css.css">
+        <link rel="stylesheet" href="/css/app.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="{{ path('homepage') }}">MLV Xtra</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+      {% include '/shared/header.html.twig' %}
 
-  <div class="collapse navbar-collapse" id="navbarColor01">
-    <ul class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
-      </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="{{ path('ads_index') }}">Extras</a>
-      </li>
-    </ul>
-    <ul class="navbar-nav ml-auto">
-      <li class="nav-item">
-        <a class="nav-link" href="#">Mon compte!</a>
-      </li>
-    </ul>
+      {% block body %}
+      <script src="/js/jquery.min.js"></script>
+      <script src="/js/popper.min.js"></script>
+      <script src="/js/bootstrap.min.js"></script>
+      {% endblock %}
 
-  </div>
-</nav>
+      {% include '/shared/footer.html.twig' %}
 
-
-        {% block body %}
-        <script src="/js/jquery.min.js"></script>
-        <script src="/js/popper.min.js"></script>
-        <script src="/js/bootstrap.min.js"></script>
-        {% endblock %}
         {% block javascripts %}{% endblock %}
     </body>
 </html>

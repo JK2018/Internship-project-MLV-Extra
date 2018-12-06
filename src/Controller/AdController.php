@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Ad;
 use App\Form\AdType;
 use App\Repository\AdRepository;
+use Symfony\Component\HttpFoundation\Request;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -30,17 +32,33 @@ class AdController extends AbstractController
 
 
     /**
-     * create a new ad.
-     * place above show function so that paramConverter does now interfere thinking new is a slug.
+     * create a new ad and redirects to the created ad if valid.
+     * placed above show function so that paramConverter does now interfere thinking new is a slug.
      *
      * @Route("/ads/new", name="ads_create")
      * @return Response
      */
-    public function create(){
+    public function create(Request $request, ObjectManager $manager){
 
         $ad = new Ad;
 
-       $form = $this->createForm(AdType::class, $ad); // created form class AdType via cmd to keep controller slim.
+        $form = $this->createForm(AdType::class, $ad); // created form class AdType via cmd to keep controller slim.
+        $form->handleRequest($request); //puts request info into $ad.
+
+        if($form->isSubmitted() && $form->isValid()){
+           
+            $manager->persist($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                'success', //label
+                "L'offre <strong>{$ad->getTitle()}</strong> a été enregistrée avec succés!" //message
+            );
+
+            return $this->redirectToRoute('ads_show', [
+                'slug' => $ad->getSlug()
+            ]);
+        }
 
         return $this->render('ad/new.html.twig', [
             'form' => $form->createView()
