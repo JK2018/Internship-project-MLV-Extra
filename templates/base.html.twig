@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>MLV Xtra - {% block title %}Welcome!{% endblock %}</title>
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="/css/app.css.css">
         {% block stylesheets %}{% endblock %}
     </head>
     <body>
@@ -19,6 +19,9 @@
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
         <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href="{{ path('ads_index') }}">Extras</a>
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
