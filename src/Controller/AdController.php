@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Ad;
+use App\Form\AdType;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController
@@ -23,6 +26,28 @@ class AdController extends AbstractController
            'ads' => $ads
         ]);
     }
+
+
+
+    /**
+     * create a new ad.
+     * place above show function so that paramConverter does now interfere thinking new is a slug.
+     *
+     * @Route("/ads/new", name="ads_create")
+     * @return Response
+     */
+    public function create(){
+
+        $ad = new Ad;
+
+       $form = $this->createForm(AdType::class, $ad); // created form class AdType via cmd to keep controller slim.
+
+        return $this->render('ad/new.html.twig', [
+            'form' => $form->createView()
+        ]);
+
+    }
+
 
     /**
      * shows one ad.
@@ -42,13 +67,5 @@ class AdController extends AbstractController
 
 
 
-/**
- * create a new ad.
- *
- * @Route("/ads/new", name="ads_create")
- * @return Response
- */
-    public function create(){
-        return $this->render('ad/new.html.twig');
-    }
+
 }
