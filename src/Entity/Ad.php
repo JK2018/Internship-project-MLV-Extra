@@ -3,9 +3,12 @@
 namespace App\Entity;
 
 use Cocur\Slugify\Slugify;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\Common\Collections\Collection;
+use Doctrine\Common\Collections\ArrayCollection;
+
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert; //in order to put constraints on feilds and make sure they are valid.
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
@@ -22,6 +25,7 @@ class Ad
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 10, max=255, minMessage="10 caractères minimum!", maxMessage="255 caractères maxi!")
      */
     private $title;
 
@@ -32,31 +36,37 @@ class Ad
 
     /**
      * @ORM\Column(type="float")
+     * @Assert\Range(min=0, max=24, minMessage="Chiffre doit être compris entre 0 et 24!", maxMessage="Chiffre doit être compris entre 0 et 24!")
      */
     private $hoursPerDay; //private $price;////////////////////////////////
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Type("string")
      */
     private $introduction;
 
     /**
      * @ORM\Column(type="string", length=2550)
+     * @Assert\Type("string")
      */
     private $content;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Url()
      */
     private $coverImage;
 
     /**
      * @ORM\Column(type="integer")
+     * @Assert\Range(min=0, max=365, minMessage="Chiffre doit être compris entre 0 et 365!", maxMessage="Chiffre doit être compris entre 0 et 365!")
      */
     private $daysPerMission;  //private $rooms; ////////////////////////////////////////
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="ad", orphanRemoval=true)
+     * @Assert\Valid()
      */
     private $images;
 
@@ -73,9 +83,10 @@ class Ad
      * @return void
      */
     public function generateSlug(){
+        $slugId = (string)$this->id;
         if(empty($this->slug)){
             $slugify = new Slugify();
-            $this->slug = $slugify->slugify($this->title);
+            $this->slug = $slugify->slugify($this->title.mt_rand(1,1000));//random, to allow duplicate titles and unique slugs.
         }
     }
 
@@ -119,18 +130,6 @@ class Ad
 
         return $this;
     }
-
-    /*public function getPrice(): ?float
-    {
-        return $this->price;
-    }
-
-    public function setPrice(float $price): self
-    {
-        $this->price = $price;
-
-        return $this;
-    }*/
 
     public function getIntroduction(): ?string
     {
@@ -180,18 +179,6 @@ class Ad
 
         return $this;
     }
-
-    /*public function getRooms(): ?int
-    {
-        return $this->rooms;
-    }
-
-    public function setRooms(int $rooms): self
-    {
-        $this->rooms = $rooms;
-
-        return $this;
-    }*/
 
     /**
      * @return Collection|Image[]

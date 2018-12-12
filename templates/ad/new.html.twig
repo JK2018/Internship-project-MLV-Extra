@@ -2,16 +2,21 @@
 
 {% block title %}Création d'un nouvel Extra{% endblock %}
 
+{% form_theme form 'ad/refactoredFormAd.html.twig' %}
+
 {% block body %}
-
-<div class="container">
-    <h1> Créer un nouvel Extra </h1>
-    {{form_start(form)}}
-    {{form_widget(form)}}
-    <button type="submit" class="btn btn-primary"> Enregistrer cet Extra</button>
-    {{form_end(form)}}
-</div>
-
+    <div class="container">
+        <h1> Créer un nouvel Extra </h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary"> Enregistrer cet Extra</button>
+        {{ form_end(form)}}
+    </div>
 {% endblock %}
 
 
+
+{% block javascripts %}
+    <script src="/js/ad.js"> //script to add new image entry uppon button click. 
+    </script>
+{% endblock %}

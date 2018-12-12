@@ -11,14 +11,14 @@
 
       {% include '/shared/header.html.twig' %}
 
-      {% block body %}
+      {% block body %}{% endblock %}
+      
       <script src="/js/jquery.min.js"></script>
       <script src="/js/popper.min.js"></script>
       <script src="/js/bootstrap.min.js"></script>
-      {% endblock %}
 
       {% include '/shared/footer.html.twig' %}
 
-        {% block javascripts %}{% endblock %}
+      {% block javascripts %}{% endblock %}
     </body>
 </html>

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Edition d'une offre {% endblock %}
+{% form_theme form 'ad/refactoredFormAd.html.twig' %}
+
+{% block body %}
+    <div class="container">
+        <h1> Modifiez l'Extra : {{ad.title}} </h1>
+        {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button type="submit" class="btn btn-primary"> Enregistrer les modifications</button>
+        {{ form_end(form)}}
+    </div>
+{% endblock %}
+
+
+
+
+
+
+{% block javascripts %}
+    <script src="/js/ad.js"> </script> 
+       {# script to add new image entry uppon button click #}  
+{% endblock %}

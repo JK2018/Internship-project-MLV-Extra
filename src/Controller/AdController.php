@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Ad;
 use App\Form\AdType;
+use App\Entity\Image;
 use App\Repository\AdRepository;
 use Symfony\Component\HttpFoundation\Request;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -41,12 +42,18 @@ class AdController extends AbstractController
     public function create(Request $request, ObjectManager $manager){
 
         $ad = new Ad;
-
+ 
         $form = $this->createForm(AdType::class, $ad); // created form class AdType via cmd to keep controller slim.
         $form->handleRequest($request); //puts request info into $ad.
 
         if($form->isSubmitted() && $form->isValid()){
            
+            // for each image we add it to the ad and persist the image to prevent (non persisted entities)error when submitting form
+            foreach($ad->getImages() as $image){
+                $image->setAd($ad);
+                $manager->persist($image);
+            }
+
             $manager->persist($ad);
             $manager->flush();
 
@@ -65,6 +72,45 @@ class AdController extends AbstractController
         ]);
 
     }
+
+
+
+
+    /**
+     * to access the form that allows to edit an existing ad.
+     *
+     * @Route("/ads/{slug}/edit", name="ads_edit")
+     * 
+     * @return Response
+     */
+    public function edit(Ad $ad, Request $request, ObjectManager $manager){
+        $form = $this->createForm(AdType::class, $ad); // created form class AdType via cmd to keep controller slim.
+        $form->handleRequest($request); //puts request info into $ad.
+
+        if($form->isSubmitted() && $form->isValid()){
+            // for each image we add it to the ad and persist the image to prevent (non persisted entities)error when submitting form
+            foreach($ad->getImages() as $image){
+                $image->setAd($ad);
+                $manager->persist($image);
+            }
+            $manager->persist($ad);
+            $manager->flush();
+
+            $this->addFlash(
+                'success', //label
+                "Les modifications de l'offre <strong>{$ad->getTitle()}</strong> ont été enregistrées avec succés!" //message
+            );
+            return $this->redirectToRoute('ads_show', [
+                'slug' => $ad->getSlug()
+            ]);
+        }
+        return $this->render('ad/edit.html.twig', [
+            'form' => $form->createView(),
+            'ad' => $ad
+        ]);
+    }
+
+
 
 
     /**
