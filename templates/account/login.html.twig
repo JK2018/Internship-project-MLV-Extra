@@ -1,0 +1,58 @@
+{#{% extends 'base.html.twig' %}#}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/app.css">
+        {% block stylesheets %}{% endblock %}
+    </head>
+
+
+    {% block title %} Connexion au site {% endblock %}
+
+    
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-3">&nbsp;</div>
+                <div class="col-md-6 pb-5">
+                    <div class="bg-dark py-3 px-3">
+                        <h1> Connectez vous !</h1>
+                        <form action="{{ path('account_login') }}" method="post">
+                            <div class="form-group">
+                                <label for="email">Email</label>
+                                <input type="text" name="_username" id="email" class="form-control" placeholder="Saisir votre adresse email" required value="{{username}}">
+                            </div>
+                            <div class="form-group">
+                                <label for="password">Mot de passe</label>
+                                <input type="password" name="_password" id="password" placeholder="Saisir votre mot de passe" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-success">Connexion!</button>
+                                <button type="button" class="btn btn-secondary"> <a href="{{ path('account_register') }}" >Inscription</a> </button>
+                            </div>
+                        </form>
+                        {%  if hasError %} <div class="alert alert-danger">Erreur d'authentification, Email ou Mot de passe invalide(s)!</div> {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+        
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+
+        {% include '/shared/footer.html.twig' %}
+
+        {% block javascripts %}{% endblock %}
+
+    
+    </body>
+</html>

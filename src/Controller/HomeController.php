@@ -13,12 +13,9 @@ class HomeController extends Controller{
      * @return void
      */
     public function home(){
-        //...
+        
         return $this->render(
-            'home.html.twig'/*,
-            [ 'title' => 'Bonjour a tous',
-            'tableau' => ['tintin', 'milou', 'batman']
-        ]*/
+            'home.html.twig'
         );
     }
 }

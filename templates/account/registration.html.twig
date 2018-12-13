@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+
+        <link rel="stylesheet" href="/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/css/app.css">
+        {% block stylesheets %}{% endblock %}
+    </head>
+
+
+
+    <body>
+
+
+        <div class="container">
+        
+            <h1>Inscrivez vous sur MLV Xtra !</h1>
+
+            {{ form_start(form) }}
+            {{ form_widget(form) }}
+            <button type="submit" class="btn btn-success">Confirmer l'inscription</button>
+            {{ form_end(form) }}
+        
+        </div>
+
+
+
+
+
+
+        <script src="/js/jquery.min.js"></script>
+        <script src="/js/popper.min.js"></script>
+        <script src="/js/bootstrap.min.js"></script>
+
+        {% include '/shared/footer.html.twig' %}
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

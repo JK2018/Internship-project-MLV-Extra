@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="{{ path('homepage') }}">MLV Xtra</a>
+  <a class="navbar-brand" href="">MLV Xtra</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,16 +7,33 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
+      {% if app.user %}
         <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+      {% else %}
+       <a class="nav-link" href="{{ path('account_login') }}">Accueil</a>
+      {% endif %}
       </li>
       <li class="nav-item active">
+        {% if app.user %}
         <a class="nav-link" href="{{ path('ads_index') }}">Extras</a>
+        {% else %}
+        <a class="nav-link" href="{{ path('account_login') }}">Extras</a>
+        {% endif %}
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+    {% if app.user %}
       <li class="nav-item">
-        <a class="nav-link" href="#">Mon compte!</a>
+        <a href="{{ path('account_loggout') }}" class="nav-link">Déconnexion</a>
       </li>
+    {% else %}
+      <li class="nav-item">
+        <a href="{{ path('account_register') }}" class="nav-link">Inscription</a>
+      </li>
+      <li class="nav-item">
+        <a href="{{ path('account_login') }}" class="nav-link">Connexion</a>
+      </li>
+    {% endif %}
     </ul>
 
   </div>

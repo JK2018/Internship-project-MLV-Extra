@@ -7,12 +7,18 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert; //in order to put constraints on feilds and make sure they are valid.
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * orm pour executer la fonction generateSlug
  * @ORM\HasLifecycleCallbacks()
- * UserInterface so that we can use EncodePassword
+ * UserInterface so that we can use encodePassword
+ * 
+ * @UniqueEntity(
+ * fields={"email"},
+ * message="Cette adresse mail est déjà utilisée, veuillez en choisir une autre")
  */
 class User implements UserInterface
 {
@@ -25,16 +31,19 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Vous devez renseigner votre prénom!")
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\NotBlank(message="Vous devez renseigner votre nom de famille!")
      */
     private $lastName;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Email(message="Veuillez renseigner un email valide!")
      */
     private $email;
 
@@ -49,7 +58,14 @@ class User implements UserInterface
     private $hash;
 
     /**
+     * not in database, allows to verify that PW is correctly reconfirmed
+     * @Assert\EqualTo(propertyPath="hash", message="Veuillez confirmer avec le même mot de passe!")
+     */
+    public $passwordConfirm;
+
+    /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Assert\NotBlank(message="Vous devez renseigner votre poste actuel!")
      */
     private $introduction;
 
@@ -60,6 +76,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Assert\Length(min = 10, max=10, minMessage="Le numéro de téléphone doit être sans espaces!", maxMessage="Le numéro de téléphone doit être sans espaces!", exactMessage="Le numéro de téléphone doit être sans espaces!")
      */
     private $tel;
 
@@ -239,7 +256,6 @@ class User implements UserInterface
                 $ad->setAuthor(null);
             }
         }
-
         return $this;
     }
 
@@ -248,7 +264,7 @@ class User implements UserInterface
         return['ROLE_USER'];
     }
     public function getPassword(){
-        return $this->$hash;
+        return $this->hash;
     }
     public function getSalt(){
     }

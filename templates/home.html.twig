@@ -15,9 +15,9 @@
                         <p class="lead">description du site (home twig) ex: nous mettns en relation blablabla</p>
                         <hr class="my-4">
                         <p>deuxieme descriptif (home twig)</p>
-                        <p class="lead">
+                       {# <p class="lead">
                                 <a class="btn btn-primary btn-lg" href="#" role="button">Learn more</a>
-                        </p>
+                        </p> #}
                 </div>  
         <h2 class="h1 mb-3 mt-3"> Nos magasins star</h2>
 
@@ -35,7 +35,11 @@
                                         job de fou!
                                         </h4>
                                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                                        <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                                        {% if app.user %}
+                                                <a href="#" class="btn btn-secondary">En savoir plus</a>
+                                        {% else %}
+                                        <a href="{{ path('account_login') }}" class="btn btn-secondary">En savoir plus</a>
+                                        {% endif %} 
                                         </div>
                                 </div>
                         </div>
@@ -51,7 +55,11 @@
                                         job de fou!
                                         </h4>
                                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                                        <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                                        {% if app.user %}
+                                                <a href="#" class="btn btn-secondary">En savoir plus</a>
+                                        {% else %}
+                                        <a href="{{ path('account_login') }}" class="btn btn-secondary">En savoir plus</a>
+                                        {% endif %} 
                                         </div>
                                 </div>
                         </div>
@@ -67,7 +75,11 @@
                                         job de fou!
                                         </h4>
                                         <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                                        <a href="#" class="btn btn-secondary">En savoir plus!</a>
+                                        {% if app.user %}
+                                                <a href="#" class="btn btn-secondary">En savoir plus</a>
+                                        {% else %}
+                                        <a href="{{ path('account_login') }}" class="btn btn-secondary">En savoir plus</a>
+                                        {% endif %}                                        
                                         </div>
                                 </div>
                         </div>
@@ -85,7 +97,11 @@
                                                 <div class="card-text">
                                                         <img src="http://placehold.it/64x64" alt="Avatar de JK" class="float-left mr-3">
                                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, assumenda.</p>
-                                                        <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                        {% if app.user %}
+                                                                <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                        {% else %}
+                                                        <a href="{{ path('account_login') }}" class="btn btn-success float-right">En savoir plus</a>
+                                                        {% endif %}
                                                 </div>
                                         </div>
                                 </div>
@@ -98,7 +114,11 @@
                                                 <div class="card-text">
                                                         <img src="http://placehold.it/64x64" alt="Avatar de JK" class="float-left mr-3">
                                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, assumenda.</p>
-                                                        <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                        {% if app.user %}
+                                                                <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                        {% else %}
+                                                        <a href="{{ path('account_login') }}" class="btn btn-success float-right">En savoir plus</a>
+                                                        {% endif %}
                                                 </div>
                                         </div>
                                 </div>

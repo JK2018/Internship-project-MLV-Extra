@@ -40,11 +40,11 @@ class AppFixtures extends Fixture
             $user -> setFirstName($faker->firstname($gender))
                     -> setLastName($faker->lastname)
                     -> setEmail($faker->email)
-                    -> setHash('password')
+                    -> setHash($hash)
                     -> setIntroduction($faker->sentence())
                     -> setTel($faker->e164PhoneNumber)
                     ->setPicture($picture)
-                    -> setText('<p>' . join('</p><p>', $faker->paragraphs(1)) . '</p>');
+                    -> setText('RANDOM TEXT HERE');
                     
 
             $manager->persist($user);
