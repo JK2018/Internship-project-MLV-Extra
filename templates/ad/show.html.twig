@@ -45,16 +45,16 @@
         </div>
         <div class="col">
             <div class="row">
-                <div class="col-4">
-                    <img src="http://placehole.it/64x64" alt"Photo de profil">
+                <div class="col-4 mb-3">
+                   <a href="{{ path('user_show', {'slug': ad.author.slug}) }}"> <img src="{{ ad.author.picture }}" class="avatar avatar-medium" alt"Photo de profil {{ ad.author.firstName }} {{ ad.author.lastName }}"> </a>
                 </div>
                 <div class="col">
-                    <h3> NOM DE LA PERSONNE</h3>
-                    <span class="badge badge-primary"> NBR D ANNONCES DE CETTE PERSONNE</span>
+                    <a href="{{ path('user_show', {'slug': ad.author.slug}) }}"><h3> {{ ad.author.firstName }} {{ ad.author.lastName }} </h3></a>
+                    <span class="badge badge-primary"> {{ ad.author.ads | length }} annonces</span>
                 </div>
             </div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus mollitia atque ullam quidem dignissimos fugiat numquam cum dolorem dolorum nisi?</p>
-            <p>Pariatur dignissimos sapiente non dicta possimus id magnam, explicabo reiciendis eaque voluptates. Alias exercitationem ad rem ducimus neque? Nesciunt, similique.</p>
+            <p> Tel : {{ ad.author.tel }}</p>
+             {{ ad.author.text | raw }}
         </div>
     </div>
 </div>
