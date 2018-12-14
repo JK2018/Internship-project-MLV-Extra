@@ -16,7 +16,11 @@
                     </a>
                     </h4>
                     <p class="card-text">{{ad.introduction}}</p>
-                    <a href="{{ url }}" class="btn btn-secondary">Consulter l'offre!</a>
+                    <a href="{{ url }}" class="btn btn-secondary">Consulter</a>
+                    {% if is_granted('ROLE_ADMIN') %}
+                    <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Editer</a>
+                    <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'Xtra : {{ ad.title }} ?`)"> Supprimer!</a>
+                    {% endif %}
                     </div>
             </div>
     </div>

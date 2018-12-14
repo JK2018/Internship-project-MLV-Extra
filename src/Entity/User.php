@@ -90,6 +90,11 @@ class User implements UserInterface
      */
     private $ads;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\Role", mappedBy="users")
+     */
+    private $userRole;
+
 
 
 
@@ -114,6 +119,7 @@ class User implements UserInterface
     public function __construct()
     {
         $this->ads = new ArrayCollection();
+        $this->userRole = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -259,18 +265,66 @@ class User implements UserInterface
         return $this;
     }
 
-    // the following 5 functions are defined due to the interface UserInterface
+    /////////////////////// the following 5 functions are defined due to the interface UserInterface //////////////////////////
+
+    
+    /**
+     * Symfony auto calls getRoles() uppon login and sets 'ROLE_USER' by default to every user. 
+     * Here, we get the current user's roles from out database and combine the titles with 'ROLE_USER'
+     * in an arrayCollection. 
+     * A user may now have several roles giving him access to more content.
+     */
     public function getRoles(){
-        return['ROLE_USER'];
+        $roles = $this->userRole->map(function($roles){
+            return $roles->getTitle();
+        })->toArray();
+        $roles[] = 'ROLE_USER';
+        return $roles;
     }
+
+
     public function getPassword(){
         return $this->hash;
     }
+
+
     public function getSalt(){
     }
+
+
     public function getUsername(){
         return $this->email;
     }
+
+
     public function eraseCredentials(){
+    }
+
+    /**
+     * @return Collection|Role[]
+     */
+    public function getUserRole(): Collection
+    {
+        return $this->userRole;
+    }
+
+    public function addUserRole(Role $userRole): self
+    {
+        if (!$this->userRole->contains($userRole)) {
+            $this->userRole[] = $userRole;
+            $userRole->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserRole(Role $userRole): self
+    {
+        if ($this->userRole->contains($userRole)) {
+            $this->userRole->removeElement($userRole);
+            $userRole->removeUser($this);
+        }
+
+        return $this;
     }
 }

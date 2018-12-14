@@ -12,12 +12,15 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AdController extends AbstractController
 {
     /**
      * @Route("/ads", name="ads_index")
+     * 
+     * @IsGranted("ROLE_USER")
      */
     public function index(AdRepository $repo)
     {
@@ -37,6 +40,10 @@ class AdController extends AbstractController
      * placed above show function so that paramConverter does now interfere thinking new is a slug.
      *
      * @Route("/ads/new", name="ads_create")
+     * 
+     * Only admins may create ads!
+     * @IsGranted("ROLE_ADMIN")
+     * 
      * @return Response
      */
     public function create(Request $request, ObjectManager $manager){
@@ -53,6 +60,8 @@ class AdController extends AbstractController
                 $image->setAd($ad);
                 $manager->persist($image);
             }
+
+            $aq->setAuthor($this->getUser());
 
             $manager->persist($ad);
             $manager->flush();
@@ -80,6 +89,9 @@ class AdController extends AbstractController
      * to access the form that allows to edit an existing ad.
      *
      * @Route("/ads/{slug}/edit", name="ads_edit")
+     * 
+     * Only admins may edit ads!
+     * @IsGranted("ROLE_ADMIN")
      * 
      * @return Response
      */
@@ -117,6 +129,9 @@ class AdController extends AbstractController
      * shows one ad.
      *
      * @Route("/ads/{slug}", name="ads_show")
+     * 
+     * @IsGranted("ROLE_USER")
+     * 
      * @return Response
      */
     public function show(/*$slug, AdRepository $repo*/ Ad $ad) //usage of paramConverter for Ad 
@@ -130,6 +145,24 @@ class AdController extends AbstractController
     }
 
 
+
+    /**
+     * Undocumented function
+     * @Route("/ads/{slug}/delete", name="ads_delete")
+     * @IsGranted("ROLE_ADMIN")
+     * @return Response
+     */
+    public function delete(ObjectManager $manager, Ad $ad){
+        $manager->remove($ad);
+        $manager->flush();
+
+        $this->addFlash(
+            'success',
+            "L'Xtra <strong>{$ad->getTitle()}</strong> a bien été supprimé !"
+        );
+
+        return $this->redirectToRoute("ads_index");
+    }
 
 
 }

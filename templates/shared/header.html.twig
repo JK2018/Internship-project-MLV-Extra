@@ -7,18 +7,10 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-      {% if app.user %}
         <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
-      {% else %}
-       <a class="nav-link" href="{{ path('account_login') }}">Accueil</a>
-      {% endif %}
       </li>
       <li class="nav-item active">
-        {% if app.user %}
         <a class="nav-link" href="{{ path('ads_index') }}">Extras</a>
-        {% else %}
-        <a class="nav-link" href="{{ path('account_login') }}">Extras</a>
-        {% endif %}
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
@@ -31,10 +23,10 @@
 
         <div class="dropdown-menu dropdown-menu-right" aria-labelledby="accountDropdownLink">
           <a href="{{ path('ads_create') }}" class="dropdown-item">Créer un Xtra</a>
-          {#<div class="dropdown-divider"></div>#}
+          
           <a href="{{ path('account_index') }}" class="dropdown-item">Mon compte</a>
           <a href="{{ path('account_profile') }}" class="dropdown-item">Modifier mon profile</a>
-          {#<div class="dropdown-divider"></div>#}
+          
           <a href="{{ path('account_logout') }}" class="dropdown-item">Déconnexion</a>
         </div>        
       </li>

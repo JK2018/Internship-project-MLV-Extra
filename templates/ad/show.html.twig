@@ -10,7 +10,11 @@
         <h1> {{ad.title}} </h1>
         <p>{{ad.introduction}}</p>
         <p class="h2"> <strong> Extra de {{ad.daysPerMission}} jour(s)</strong> a raison de <strong>{{ad.hoursPerDay}} heures / jour</strong></p>
-        <a href="#" class="btn btn-primary">Réserver !</a>
+        <a href="#" class="btn btn-primary">Réserver!</a>
+        {% if is_granted('ROLE_ADMIN') %}
+        <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary"> Modifier</a>
+        <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'Xtra : {{ ad.title }} ?`)"> Supprimer!</a>
+        {% endif %}
     </div>
 </div>
 
