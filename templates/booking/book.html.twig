@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Réservez un Xtra!{% endblock %}
+
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1>Réservez du temps de travail cette offre !</h1>
+
+        <p>Vous êtes désormais sur le point de réserver la période que vous voulez travailler à {{ad.title}}</p>
+        <p>Si vous avez besoin d'aide, n'hésitez pas a vous rapprocher de <strong> {{ ad.author.firstName}} {{ ad.author.lastName}} </strong>  tel: {{ ad.author.tel }}</p>
+    
+        {{ form_start(form) }}
+        <div class="alert alert-secondary">
+            <h2>Commencez par nous dire quelles sont les dates qui vous interessent !</h2>
+            <div class="row">
+                <div class="col">
+                    {{ form_row(form.startDate) }}
+                </div>
+                <div class="col">
+                    {{ form_row(form.endDate) }}
+                </div>
+            </div>
+        </div>
+
+        <h4>Vous allez travailler <span id="days">0</span> jour(s) à raison de {{ ad.hoursPerDay }} heures par jour.</h4>
+        <h5>Cela représente <span id="amount">...</span> heures en plus sur votre salaire !</h5>
+
+        <h2>Souhaitez vous laisser un commentaire?</h2>
+        {{ form_row(form.comment) }}
+
+        <h2>Vous avez terminé!</h2>
+
+        <button type="submit" class="btn btn-success">Je réserve!</button>
+
+        {{ form_end(form) }}
+
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+
+<script>
+    $(document).ready(function(){
+        $('#booking_startDate, #booking_endDate').datepicker({
+            format: 'dd/mm/yyyy',
+            datesDisabled: [
+                {% for day in ad.notAvailableDays %}
+                    "{{ day.format('d/m/Y') }}",
+                {% endfor %}
+            ],
+            startDate: new Date()
+        });
+    })
+</script>
+{% endblock %}

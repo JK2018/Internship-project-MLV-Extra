@@ -9,7 +9,7 @@ div.ad-title{
 }
 
 div.ad-title h1, div.ad-title p{
-    color : white;
+    color : rgb(255, 255, 255);
     text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)
 }
 
@@ -27,4 +27,17 @@ div.ad-title h1, div.ad-title p{
 .avatar-mini{
     max-width: 24px;
     max-height: 24px;
+}
+
+div.card-body, div.card-header{
+    background-color : rgb(70, 70, 70);
+}
+
+p.copyright{
+    color : rgb(85, 85, 85);
+    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)
+}
+
+.datepicker table tr td.disabled, .datepicker table tr td.disabled:hover {
+    color: firebrick !important;
 }

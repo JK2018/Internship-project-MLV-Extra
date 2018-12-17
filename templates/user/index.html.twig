@@ -31,9 +31,10 @@
 
     <hr class="mb-5">
 
-    <h2> Les annonces de {{ user.firstName }} {{ user.lastName }} </h2>
+    
 
     {% if user.ads | length > 0 %}
+    <h2> Les annonces de {{ user.firstName }} {{ user.lastName }} </h2>
         <div class="row">
             {% for ad in user.ads %}
 
