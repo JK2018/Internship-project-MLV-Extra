@@ -28,9 +28,9 @@ class BookingType extends ApplicationType
     {
         $builder
             ->add('startDate', TextType::class, $this->labelPlaceholderConfig("Date du premier jour que vous aller travailler",
-             "Date à laquelle vous voulez commencer à travailler"))
+             "Cliquez ici pour choisir une date dans le calendrier ! "))
             ->add('endDate', TextType::class, $this->labelPlaceholderConfig("Date du dernier jour que vous allez travailler",
-             "Date du dernier jour que vous allez travailler sur ce site"))
+             "Cliquez ici pour choisir une date dans le calendrier ! "))
              ->add('comment', TextareaType::class, $this->labelPlaceholderConfig(false, "Si vous avez un commentaire, écrivez-le ici!", ["required" => false]));
     
              $builder->get('startDate')->addModelTransformer($this->transformer);

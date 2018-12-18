@@ -8,13 +8,14 @@
 
 {% block body %}
     <div class="container">
-        <h1>Réservez du temps de travail cette offre !</h1>
+        <h1>Réservez des jours de travail sur cette offre !</h1>
 
         <p>Vous êtes désormais sur le point de réserver la période que vous voulez travailler à {{ad.title}}</p>
         <p>Si vous avez besoin d'aide, n'hésitez pas a vous rapprocher de <strong> {{ ad.author.firstName}} {{ ad.author.lastName}} </strong>  tel: {{ ad.author.tel }}</p>
     
         {{ form_start(form) }}
         <div class="alert alert-secondary">
+            <div class="col">
             <h2>Commencez par nous dire quelles sont les dates qui vous interessent !</h2>
             <div class="row">
                 <div class="col">
@@ -24,13 +25,16 @@
                     {{ form_row(form.endDate) }}
                 </div>
             </div>
+                    <h4>Vous allez travailler <span id="days">0</span> jour(s) à raison de {{ ad.hoursPerDay }} heures par jour.</h4>
+                    <h5>Cela représente <span id="amount">...</span> heures en plus sur votre salaire !</h5>
+            </div>
+            <div class="col mt-5">
+                <h4>Souhaitez vous laisser un commentaire?</h4>
+                {{ form_row(form.comment) }}
+            </div>
         </div>
 
-        <h4>Vous allez travailler <span id="days">0</span> jour(s) à raison de {{ ad.hoursPerDay }} heures par jour.</h4>
-        <h5>Cela représente <span id="amount">...</span> heures en plus sur votre salaire !</h5>
 
-        <h2>Souhaitez vous laisser un commentaire?</h2>
-        {{ form_row(form.comment) }}
 
         <h2>Vous avez terminé!</h2>
 
@@ -46,6 +50,7 @@
 
 <script>
     $(document).ready(function(){
+
         $('#booking_startDate, #booking_endDate').datepicker({
             format: 'dd/mm/yyyy',
             datesDisabled: [
@@ -53,8 +58,26 @@
                     "{{ day.format('d/m/Y') }}",
                 {% endfor %}
             ],
-            startDate: new Date()
+            startDate: new Date(),
+            
         });
-    })
+        $('#booking_startDate, #booking_endDate').on('change', calculateAmount);
+    });
+
+    function calculateAmount() {
+        const endDate = new Date($('#booking_endDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1' )); //regex: we swap positions each captured number to correct format
+        const startDate = new Date($('#booking_startDate').val().replace(/(\d+)\/(\d+)\/(\d{4})/, '$3-$2-$1' ));
+        const dayTime = 24*60*60*1000;
+
+        if(startDate && endDate && startDate<endDate){
+           const interval = endDate.getTime() - startDate.getTime();
+           const days = (interval / dayTime)+1;
+           const amount = days * {{ ad.hoursPerDay }}
+
+           $('#days').text(days);
+           $('#amount').text(amount);
+        }
+    }
 </script>
+
 {% endblock %}

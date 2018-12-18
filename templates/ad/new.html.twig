@@ -2,6 +2,10 @@
 
 {% block title %}Création d'un nouvel Extra{% endblock %}
 
+{% block stylesheets %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+{% endblock %}
+
 {% form_theme form 'ad/refactoredFormAd.html.twig' %}
 
 {% block body %}
@@ -19,4 +23,18 @@
 {% block javascripts %}
     <script src="/js/ad.js"> //script to add new image entry uppon button click. 
     </script>
+
+
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#ad_startAdDate, #ad_endAdDate').datepicker({
+            format: 'dd/mm/yyyy',
+  
+            startDate: new Date()
+        });
+    })
+</script>
 {% endblock %}

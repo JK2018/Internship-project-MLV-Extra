@@ -4,12 +4,13 @@ namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Form\DataTransformer\FrenchToDateTimeTransformer;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
  * @ORM\HasLifeCycleCallbacks()
  */
-class Booking
+class Booking 
 {
     /**
      * @ORM\Id()
@@ -33,16 +34,22 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention, la date doit être au bon format !")
-     * @Assert\GreaterThan("today", message="La date de debut est invalide!")
+     * @Assert\GreaterThanOrEqual("today", message="La date de debut est invalide!")
      */
     private $startDate;
+
+
 
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention, la date doit être au bon format !")
-     * @Assert\GreaterThan(propertyPath="startDate", message="La date de fin doit être après la date de début !")
+     * @Assert\GreaterThanOrEqual(propertyPath="startDate", message="La date de fin doit être après la date de début !")  
      */
     private $endDate;
+
+    
+      
+
 
     /**
      * @ORM\Column(type="datetime")

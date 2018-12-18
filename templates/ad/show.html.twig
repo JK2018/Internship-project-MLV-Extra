@@ -9,7 +9,7 @@
     <div class="container mt-5 mb-5">
         <h1> {{ad.title}} </h1>
         <p>{{ad.introduction}}</p>
-        <p class="h2"> <strong> Extra de {{ad.daysPerMission}} jour(s)</strong> a raison de <strong>{{ad.hoursPerDay}} heures / jour</strong></p>
+        <p class="h2"> <strong> Extra du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}}</strong>, soit <strong>{{ad.hoursPerDay}} heures / jour</strong></p>
         <a href="{{ path('booking_create', {'slug': ad.slug})}}" class="btn btn-primary">Réserver!</a>
         {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary"> Modifier</a>
@@ -21,6 +21,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mb-3">
+
             {{ad.content | raw}}
             {# ------------- CAROUSEL ------------ #}
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">

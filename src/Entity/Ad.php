@@ -2,13 +2,29 @@
 
 namespace App\Entity;
 
+use \DateTime;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\Collection;
-use Doctrine\Common\Collections\ArrayCollection;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert; //in order to put constraints on feilds and make sure they are valid.
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
+/////////////////////////////////////////////////////////////////
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\AdRepository")
@@ -38,8 +54,7 @@ class Ad
      * @ORM\Column(type="float")
      * @Assert\Range(min=0, max=24, minMessage="Chiffre doit être compris entre 0 et 24!", maxMessage="Chiffre doit être compris entre 0 et 24!")
      */
-    private $hoursPerDay; //private $price;////////////////////////////////
-
+    private $hoursPerDay; 
     /**
      * @ORM\Column(type="string", length=255)
      * @Assert\Type("string")
@@ -62,7 +77,7 @@ class Ad
      * @ORM\Column(type="integer")
      * @Assert\Range(min=0, max=365, minMessage="Chiffre doit être compris entre 0 et 365!", maxMessage="Chiffre doit être compris entre 0 et 365!")
      */
-    private $daysPerMission;  //private $rooms; ////////////////////////////////////////
+    private $daysPerMission;  
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Image", mappedBy="ad", orphanRemoval=true)
@@ -80,6 +95,18 @@ class Ad
      * @ORM\OneToMany(targetEntity="App\Entity\Booking", mappedBy="ad")
      */
     private $bookings;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThan("today", message="La date de debut est invalide!")
+     */
+    private $startAdDate;
+
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\GreaterThan(propertyPath="startAdDate", message="La date de fin doit être après la date de début !")
+     */
+    private $endAdDate;
 
     public function __construct()
     {
@@ -274,11 +301,12 @@ class Ad
      * @return array A table of DateTime objects representing the taken days
      */
     public function getNotAvailableDays(){
-
+        
         $notAvailableDays = [];
+        $d = new DateTime();
 
         foreach($this->bookings as $booking){
-            //calculate the days between start/endDate
+            //calculate the days between start/endDate for each booking
             $result = range(
                 $booking->getStartDate()->getTimestamp(), $booking->getEndDate()->getTimestamp(), 60 * 60 * 24
             );
@@ -289,6 +317,54 @@ class Ad
             
             $notAvailableDays = array_merge($notAvailableDays, $days);
         }
+        // days between now and startAdDate
+        $result2 = range( $d->getTimestamp() , $this->getStartAdDate()->getTimestamp(), 60*60*24 );
+        $days2 = array_map(function($dayTimestamp){
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+        }, $result2);
+        $notAvailableDays = array_merge($notAvailableDays, $days2);
+        
+        // days after endAdDate...
+        $result3 = range( $this->getEndAdDate()->getTimestamp()+(60*60*24) , $this->getEndAdDate()->getTimestamp()+(60*60*24*1000), 60*60*24 );
+        $days3 = array_map(function($dayTimestamp){
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+        }, $result3);
+        $notAvailableDays = array_merge($notAvailableDays, $days3);
+
+
         return $notAvailableDays;
+        dump($notAvailableDays);
+    }
+
+
+
+
+
+
+
+
+
+    public function getStartAdDate(): ?\DateTimeInterface
+    {
+        return $this->startAdDate;
+    }
+
+    public function setStartAdDate(\DateTimeInterface $startAdDate): self
+    {
+        $this->startAdDate = $startAdDate;
+
+        return $this;
+    }
+
+    public function getEndAdDate(): ?\DateTimeInterface
+    {
+        return $this->endAdDate;
+    }
+
+    public function setEndAdDate(\DateTimeInterface $endAdDate): self
+    {
+        $this->endAdDate = $endAdDate;
+
+        return $this;
     }
 }

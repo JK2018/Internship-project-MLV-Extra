@@ -10,6 +10,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use App\Form\DataTransformer\FrenchToDateTimeTransformer;
 use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -17,7 +18,11 @@ use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 class AdType extends ApplicationType
 {
 
+    private $transformer;
 
+    public function __construct(FrenchToDateTimeTransformer $transformer){
+        $this->transformer = $transformer;
+    }
 
 
 
@@ -52,16 +57,22 @@ class AdType extends ApplicationType
                  UrlType::class,
                   $this->labelPlaceholderConfig('Url Photo', 'Url de la photo principale')
                   )
-            ->add(
+           /* ->add(
                 'daysPerMission',
                  IntegerType::class,
                   $this->labelPlaceholderConfig('Nombre de jours', 'Durée totale de la mission (en jours)')
-                  )
+                  )*/
             ->add(
                 'hoursPerDay',
                  IntegerType::class,
                   $this->labelPlaceholderConfig('Durée quotidienne', 'Durée de travail par jour (en heures)')
-                  ) 
+                  )
+            ->add('startAdDate', TextType::class, $this->labelPlaceholderConfig("Date de démarrage",
+            "Premier jour travaillé")
+                  )
+            ->add('endAdDate', TextType::class, $this->labelPlaceholderConfig("Date de fin (inclu)",
+            "Dernier jour travaillé")
+                  )
             ->add( //created new form class ImageType 
                 'images',
                 CollectionType::class,
@@ -70,9 +81,9 @@ class AdType extends ApplicationType
                     'allow_add' => true,
                     'allow_delete' => true
                     
-                ]
-                )
-        ;
+                ]);
+                $builder->get('startAdDate')->addModelTransformer($this->transformer);
+                $builder->get('endAdDate')->addModelTransformer($this->transformer);
     }
 
 

@@ -82,6 +82,10 @@ class AppFixtures extends Fixture
         $content = '<p>'. join('</p><p>', $faker->paragraphs(5)) . '</p>';
         $coverImage = $faker->imageUrl(1000, 350);
 
+        $startAdDate = $faker->dateTimeBetween('-6 months');
+        $duration    = mt_rand(15, 40);
+        $endAdDate   = (clone $startAdDate)->modify("+$duration days"); 
+
         $user = $users[mt_rand(0, count($users)-1)];
 
         $ad = new Ad();
@@ -91,6 +95,8 @@ class AppFixtures extends Fixture
             ->setContent($content)
             ->setCoverImage($coverImage)
             ->setAuthor($user)
+            ->setStartAdDate($startAdDate)
+            ->setEndAdDate($endAdDate)
             ->setDaysPerMission(\mt_rand(1,6));
 
             for($j=1; $j<= mt_rand(2,5); $j++){
