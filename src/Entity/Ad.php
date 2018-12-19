@@ -3,10 +3,11 @@
 namespace App\Entity;
 
 use \DateTime;
+use App\Entity\User;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
-use Doctrine\Common\Collections\Collection;
 
+use Doctrine\Common\Collections\Collection;
 use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert; //in order to put constraints on feilds and make sure they are valid.
@@ -108,10 +109,16 @@ class Ad
      */
     private $endAdDate;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="ad", orphanRemoval=true)
+     */
+    private $comments;
+
     public function __construct()
     {
         $this->images = new ArrayCollection();
         $this->bookings = new ArrayCollection();
+        $this->comments = new ArrayCollection();
     }
 
     /**
@@ -317,29 +324,55 @@ class Ad
             
             $notAvailableDays = array_merge($notAvailableDays, $days);
         }
-        // days between now and startAdDate
-        $result2 = range( $d->getTimestamp() , $this->getStartAdDate()->getTimestamp(), 60*60*24 );
-        $days2 = array_map(function($dayTimestamp){
-            return new \DateTime(date('Y-m-d', $dayTimestamp));
-        }, $result2);
-        $notAvailableDays = array_merge($notAvailableDays, $days2);
+
+            // days between now and startAdDate
+            $start=strtotime($this->getStartAdDate()->getTimestamp());
+            $now=strtotime($d->getTimestamp());
+            
+            if($now-$start < 86400){ //to prevent an error when loading booking page for a job that starts today.
+                $result2 = range( $d->getTimestamp() , $this->getStartAdDate()->getTimestamp());
+                $days2 = array_map(function($dayTimestamp){
+                return new \DateTime(date('Y-m-d', $dayTimestamp));
+                }, $result2);
+                $notAvailableDays = array_merge($notAvailableDays, $days2);
+            } else {
+                $result2 = range( $d->getTimestamp() , $this->getStartAdDate()->getTimestamp(), 60*60*24);
+                $days2 = array_map(function($dayTimestamp){
+                return new \DateTime(date('Y-m-d', $dayTimestamp));
+                }, $result2);
+                $notAvailableDays = array_merge($notAvailableDays, $days2);
+            }
+       
         
-        // days after endAdDate...
-        $result3 = range( $this->getEndAdDate()->getTimestamp()+(60*60*24) , $this->getEndAdDate()->getTimestamp()+(60*60*24*1000), 60*60*24 );
-        $days3 = array_map(function($dayTimestamp){
-            return new \DateTime(date('Y-m-d', $dayTimestamp));
-        }, $result3);
-        $notAvailableDays = array_merge($notAvailableDays, $days3);
+            // days after endAdDate...
+            $result3 = range( $this->getEndAdDate()->getTimestamp()+(60*60*24) , $this->getEndAdDate()->getTimestamp()+(60*60*24*1000), 60*60*24 );
+            $days3 = array_map(function($dayTimestamp){
+                return new \DateTime(date('Y-m-d', $dayTimestamp));
+            }, $result3);
+            $notAvailableDays = array_merge($notAvailableDays, $days3);
 
 
-        return $notAvailableDays;
-        dump($notAvailableDays);
+            return $notAvailableDays;
+            dump($notAvailableDays);
     }
 
 
+/**
+ * retreives an authors comment for an ad
+ * used for booking confirmation page
+ *
+ * @param User $author
+ * @return Comment|null
+ */
+public function getCommentFromAuthor(User $author){
 
-
-
+    foreach($this->comments as $comment){
+        if($comment->getAuthor() === $author){
+            return $comment;
+        }
+    }
+    return null;
+}
 
 
 
@@ -366,5 +399,53 @@ class Ad
         $this->endAdDate = $endAdDate;
 
         return $this;
+    }
+
+    /**
+     * @return Collection|Comment[]
+     */
+    public function getComments(): Collection
+    {
+        return $this->comments;
+    }
+
+    public function addComment(Comment $comment): self
+    {
+        if (!$this->comments->contains($comment)) {
+            $this->comments[] = $comment;
+            $comment->setAd($this);
+        }
+
+        return $this;
+    }
+
+    public function removeComment(Comment $comment): self
+    {
+        if ($this->comments->contains($comment)) {
+            $this->comments->removeElement($comment);
+            // set the owning side to null (unless already changed)
+            if ($comment->getAd() === $this) {
+                $comment->setAd(null);
+            }
+        }
+
+        return $this;
+    }
+
+
+    /**
+     * returns average of ratings for an ad
+     *
+     * @return void
+     */
+    public function getRatingAvg(){
+        $total =0;
+        //calculates the sum of comment ratings for each iteration
+        $sum = array_reduce($this->comments->toArray(), function($total, $comment){
+            return $total + $comment->getRating();
+        });
+        if(count($this->comments) > 0){
+        return $sum / count($this->comments);}
+        else { return 0;}
     }
 }

@@ -12,6 +12,8 @@ class HomeController extends Controller{
     /**
      * @Route("/", name="homepage")
      * 
+     * @IsGranted("ROLE_USER")
+     * 
      * 
      * 
      * @return void

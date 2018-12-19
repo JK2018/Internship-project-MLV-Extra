@@ -4,25 +4,32 @@
             <div class="card bg-light mb-3">
                     <div class="card-header text-center">
                     
-                   <strong> Du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}} </strong> <br>
-                    <strong>{{ad.hoursPerDay}} heures / jour</strong> <br>
-                    <small> pas encore noté </small>
+                        <strong> Du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}} </strong> <br>
+                        <strong>{{ad.hoursPerDay}} heures / jour</strong> <br>
+
+                        {#rating#}
+                        {% if ad.comments|length > 0 %}
+                            {% include 'shared/rating.html.twig' with {'rating': ad.ratingAvg} %}
+                        {% else %}
+                            <small> pas encore noté </small>
+                        {% endif %}
+                        
                     </div>
                     <a href="{{ url }}">
                         <img src="{{ad.coverImage}}" alt="image du magasin" style="height: 200px; width:100%; display:block;">
                     </a>
                     <div class="card-body">
-                    <h4 class="card-title">
-                    <a href="{{ url }}">
-                        {{ad.title}}
-                    </a>
-                    </h4>
-                    <p class="card-text">{{ad.introduction}}</p>
-                    <a href="{{ url }}" class="btn btn-secondary">Consulter</a>
-                    {% if is_granted('ROLE_ADMIN') %}
-                    <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Editer</a>
-                    <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'Xtra : {{ ad.title }} ?`)"> Supprimer!</a>
-                    {% endif %}
+                        <h4 class="card-title">
+                            <a href="{{ url }}">
+                                {{ad.title}}
+                            </a>
+                        </h4>
+                        <p class="card-text">{{ad.introduction}}</p>
+                        <a href="{{ url }}" class="btn btn-secondary">Consulter</a>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-secondary">Editer</a>
+                            <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'Xtra : {{ ad.title }} ?`)"> Supprimer!</a>
+                        {% endif %}
                     </div>
             </div>
     </div>

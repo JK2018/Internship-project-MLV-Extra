@@ -31,7 +31,7 @@
                         <dt class="col-md-4">Total heures travaillées</dt>
                         <dd class="col-md-8">{{ booking.amount }}</dd>
                         <dt class="col-md-4">Commentaire</dt>
-                        <dd class="col-md-8">{{ booking.comment }}</dd>
+                        <dd class="col-md-8">{{ booking.comment | default('aucun commentaire') }}</dd>
                     </dl>
                     <hr>
                     <h2 class="alert-heading"> Votre responsable </h2>
@@ -48,7 +48,31 @@
                     </div>
                     <p>Vous rencontrez un problème, avez un empèchement, vous êtes trompé sur les dates, ou simplement souhaitez annuler ? Merci de me prévenir rapidement au numéro suivant ! tel : {{ booking.ad.author.tel }}.</p>
                 </div>
+                {# ---- AVIS ---- #}
+                <div class="alert alert-light">
+                    <h2 class="alert-heading">Votre avis compte! </h2>
+                    {#  not over yet / mission over but not commented / mission over and commented  #}
+                    {% if date() > date(booking.endDate) %}
+                        {% set comment = booking.ad.getCommentFromAuthor(app.user) %}
+                        {% if comment is not null %}
+                            <blockquote>
+                                {{comment.content}}
+                            </blockquote>
+
+                            <strong>Note :</strong> {% include 'shared/rating.html.twig' with {'rating': comment.rating} %}
+                        {% else %}
+                            {{ form_start(form) }}
+                            {{ form_widget(form) }}
+                            <button type="submit" class="btn btn-success">Confirmer!</button>
+                            {{ form_end(form) }}
+                        {% endif %}
+                    {% else %}
+                        <p>Ici, vous pourrez donnez votre avis sur cette mission une fois que vous l'aurez terminée</p>
+                        <p>Revenez plus tard et partagez-nous votre expérience!</p>
+                    {% endif %}
+                </div>
             </div>
+            {# ---- Mission recap ----#}
             <div class="col">
                 <div class="alert alert-light">
                     <h2 class="alert-heading"> Votre mission </h2>

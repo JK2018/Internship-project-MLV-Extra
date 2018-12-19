@@ -49,6 +49,7 @@ class AccountController extends Controller
     /**
      * gives user ability to logout.
      * @Route("/logout", name="account_logout")
+     * 
      *
      * @return void
      */
@@ -193,7 +194,7 @@ class AccountController extends Controller
      * list of all bookings for a user
      * 
      * @Route("/account/bookings", name="account_bookings")
-     *
+     * @IsGranted("ROLE_USER")
      * @return Response
      */
     public function bookings(){
