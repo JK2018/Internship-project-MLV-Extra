@@ -55,7 +55,7 @@ class AdType extends ApplicationType
             ->add(
                 'coverImage',
                  UrlType::class,
-                  $this->labelPlaceholderConfig('Url Photo', 'Url de la photo principale')
+                  $this->labelPlaceholderConfig('Url Photo Principale' , 'Url de la photo principale')
                   )
            /* ->add(
                 'daysPerMission',
@@ -65,8 +65,13 @@ class AdType extends ApplicationType
             ->add(
                 'hoursPerDay',
                  IntegerType::class,
-                  $this->labelPlaceholderConfig('Durée quotidienne', 'Durée de travail par jour (en heures)')
-                  )
+                  $this->labelPlaceholderConfig('Durée quotidienne de travail (en heures)', 'Durée de travail par jour (en heures)', [
+                    'attr' => [
+                        'min' => 1,
+                        'max' => 12,
+                        'step' => 0.5
+                    ]]
+                  ))
             ->add('startAdDate', TextType::class, $this->labelPlaceholderConfig("Date de démarrage",
             "Premier jour travaillé")
                   )

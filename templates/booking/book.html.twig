@@ -8,15 +8,15 @@
 
 {% block body %}
     <div class="container">
-        <h1>Réservez des jours de travail sur cette offre !</h1>
+        <h1>Réservez vos jours de travail sur cette offre !</h1>
 
-        <p>Vous êtes désormais sur le point de réserver la période que vous voulez travailler à {{ad.title}}</p>
-        <p>Si vous avez besoin d'aide, n'hésitez pas a vous rapprocher de <strong> {{ ad.author.firstName}} {{ ad.author.lastName}} </strong>  tel: {{ ad.author.tel }}</p>
+        {#<p>Vous êtes désormais sur le point de réserver la période que vous voulez travailler à {{ad.title}}</p>#}
+        <p class="pb-4">Si vous avez besoin d'aide, n'hésitez pas a vous rapprocher de <strong> {{ ad.author.firstName}} {{ ad.author.lastName}} </strong>  tel: {{ ad.author.tel }}</p>
     
         {{ form_start(form) }}
-        <div class="alert alert-secondary">
+        <div class="alert alert-secondary mt-4">
             <div class="col">
-            <h2>Commencez par nous dire quelles sont les dates qui vous interessent !</h2>
+            <h4 class="mb-4">Commencez par nous dire quelles sont les dates qui vous interessent !</h4>
             <div class="row">
                 <div class="col">
                     {{ form_row(form.startDate) }}
@@ -25,8 +25,8 @@
                     {{ form_row(form.endDate) }}
                 </div>
             </div>
-                    <h4>Vous allez travailler <span id="days">0</span> jour(s) à raison de {{ ad.hoursPerDay }} heures par jour.</h4>
-                    <h5>Cela représente <span id="amount">...</span> heures en plus sur votre salaire !</h5>
+                    <h6>Vous allez travailler <span id="days">0</span> jour(s) à raison de {{ ad.hoursPerDay }} heures par jour.</h6>
+                    <h6>Cela représente <span id="amount">...</span> heures en plus sur votre salaire !</h6>
             </div>
             <div class="col mt-5">
                 <h4>Souhaitez vous laisser un commentaire?</h4>

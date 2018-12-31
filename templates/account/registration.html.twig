@@ -16,11 +16,40 @@
 
         <div class="container">
         
-            <h1>Inscrivez vous sur MLV Xtra !</h1>
-
+            <h1 class="mt-5 mb-4">Inscrivez vous sur MLV Xtra !</h1>
             {{ form_start(form) }}
-            {{ form_widget(form) }}
-            <button type="submit" class="btn btn-success">Confirmer l'inscription</button>
+            <div class="row my-2">
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2>Informations générales</h2>
+                        {{form_row(form.firstName)}}
+                        {{form_row(form.lastName)}}
+                    </div>
+                    <div class="alert alert-light">
+                        <h2>Identifiants de connexion</h2>
+                        {{form_row(form.email)}}
+                        {{form_row(form.hash)}}
+                        {{form_row(form.passwordConfirm)}}
+                        
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2>Informations complémentaires</h2>
+                        {{form_row(form.tel)}}
+                        {{form_row(form.introduction)}}
+                        {{form_row(form.text)}}
+                        {{form_row(form.picture)}}
+                        
+                    </div>
+                    <button type="submit" class="btn btn-success">Confirmer l'inscription</button>
+                </div>
+            </div>
+
+            
+            
+            
             {{ form_end(form) }}
         
         </div>

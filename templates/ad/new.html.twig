@@ -10,10 +10,42 @@
 
 {% block body %}
     <div class="container">
-        <h1> Créer un nouvel Extra </h1>
+        <h1 class="my-5"> Créer un nouvel Extra </h1>
         {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary"> Enregistrer cet Extra</button>
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Informations générales</h2>
+                    <hr>
+                    {{form_row(form.title)}}
+                    {{form_row(form.hoursPerDay)}}
+                    {{form_row(form.startAdDate)}}
+                    {{form_row(form.endAdDate)}}
+                </div>
+                <div class="alert alert-light">
+                    <h2>Détails de l'offre</h2>
+                    <hr>
+                    {{form_row(form.introduction)}}
+                    {{form_row(form.content)}}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Illustrations</h2>
+                    <hr>
+                    {{form_row(form.coverImage)}}
+                    {{form_row(form.images)}}
+                </div>
+                <div class="alert alert-light">
+                    <div class="row ml-1">
+                        <h4> Vous êtes sur le pount de créer un nouvel Xtra! </h4>
+                        <button type="submit" class="btn btn-success mt-2 mb-2">  Enregistrer cet Extra <i class="fas fa-check"></i></button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+
+        
         {{ form_end(form)}}
     </div>
 {% endblock %}

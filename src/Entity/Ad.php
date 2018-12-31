@@ -314,34 +314,21 @@ class Ad
 
         foreach($this->bookings as $booking){
             //calculate the days between start/endDate for each booking
-            $result = range(
-                $booking->getStartDate()->getTimestamp(), $booking->getEndDate()->getTimestamp(), 60 * 60 * 24
-            );
-
+            $result = range($booking->getStartDate()->getTimestamp(), $booking->getEndDate()->getTimestamp(), 60 * 60 * 24);
             $days = array_map(function($dayTimestamp){
                 return new \DateTime(date('Y-m-d', $dayTimestamp));
             }, $result);
-            
             $notAvailableDays = array_merge($notAvailableDays, $days);
         }
 
+
             // days between now and startAdDate
-            $start=strtotime($this->getStartAdDate()->getTimestamp());
-            $now=strtotime($d->getTimestamp());
+            $result2 = range( $this->getStartAdDate()->getTimestamp()-(60*60*24*1000) , $this->getStartAdDate()->getTimestamp()-(60*60*24), 60*60*24);
+            $days2 = array_map(function($dayTimestamp){
+            return new \DateTime(date('Y-m-d', $dayTimestamp));
+            }, $result2);
+            $notAvailableDays = array_merge($notAvailableDays, $days2);
             
-            if($now-$start < 86400){ //to prevent an error when loading booking page for a job that starts today.
-                $result2 = range( $d->getTimestamp() , $this->getStartAdDate()->getTimestamp());
-                $days2 = array_map(function($dayTimestamp){
-                return new \DateTime(date('Y-m-d', $dayTimestamp));
-                }, $result2);
-                $notAvailableDays = array_merge($notAvailableDays, $days2);
-            } else {
-                $result2 = range( $d->getTimestamp() , $this->getStartAdDate()->getTimestamp(), 60*60*24);
-                $days2 = array_map(function($dayTimestamp){
-                return new \DateTime(date('Y-m-d', $dayTimestamp));
-                }, $result2);
-                $notAvailableDays = array_merge($notAvailableDays, $days2);
-            }
        
         
             // days after endAdDate...

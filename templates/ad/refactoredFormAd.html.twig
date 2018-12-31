@@ -1,6 +1,6 @@
-# image form #}
+{# image form #}
 {% block _ad_images_widget %}
-    <p> Ici vous pouvez ajouter vos propores images! </p>
+    <p> Ici vous pouvez ajouter d'autres images (secondaires, qui défileront)! </p>
     {{ form_widget(form) }}
 
 <input type="hidden" id="widgets-counter" value=0> {# simple counter for entries #}
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="col-2"> {# btn to delete an enty #}
-                <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger">X</button>
+                <button type="button" data-action="delete" data-target="#block_{{id}}" class="btn btn-danger"><i class="far fa-trash-alt"></i></button>
             </div>
         </div>
         
