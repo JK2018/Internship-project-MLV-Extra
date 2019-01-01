@@ -32,7 +32,7 @@ class AdType extends ApplicationType
             ->add(
                 'title',
                  TextType::class,
-                  $this->labelPlaceholderConfig('Titre', 'Définissez le nom du magasin (ou site)')
+                  $this->labelPlaceholderConfig('Titre - Nom du site', 'Définissez le nom du magasin (ou site)')
                   )
                   //slug feild unneeded since slug is automatically generated with title.
            /* ->add(

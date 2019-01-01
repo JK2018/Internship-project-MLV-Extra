@@ -4,13 +4,132 @@
 {% form_theme form 'ad/refactoredFormAd.html.twig' %}
 
 {% block body %}
+{#
     <div class="container">
-        <h1> Modifiez l'Extra : {{ad.title}} </h1>
-        {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button type="submit" class="btn btn-primary"> Enregistrer les modifications</button>
-        {{ form_end(form)}}
+        <div class="row">
+            <div class="col">
+                <h1> Modifiez l'Extra : {{ad.title}} </h1>
+                {{ form_start(form) }}
+                {{ form_widget(form) }}
+                <button type="submit" class="btn btn-primary"> Enregistrer les modifications</button>
+                {{ form_end(form)}}
+            </div>
+            <div class="col">
+            </div>
+        </div>
     </div>
+    #}
+
+<div class="container">
+        <h1 class="my-5"> Modifier l'Extra : {{ad.title}}</h1>
+        {{ form_start(form) }}
+        <div class="row">
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Informations générales</h2>
+                    <hr>
+                    {{form_row(form.title)}}
+                    {{form_row(form.hoursPerDay)}}
+                    {{form_row(form.startAdDate)}}
+                    {{form_row(form.endAdDate)}}
+                </div>
+                        <div class="alert alert-light">
+                    <h2>Détails de l'offre</h2>
+                    <hr>
+                    {{form_row(form.introduction)}}
+                    {{form_row(form.content)}}
+                </div>
+            </div>
+            <div class="col">
+                <div class="alert alert-light">
+                    <h2>Illustrations</h2>
+                    <hr>
+                    {{form_row(form.coverImage)}}
+                    {{form_row(form.images)}}
+                </div>
+                <div class="alert alert-light">
+                    <div class="row ml-1">
+
+                        <button type="submit" class="btn btn-success mt-2 mb-2">  Enregistrer les Modifications <i class="fas fa-check"></i></button>
+                    </div>  
+                </div>
+            </div>
+        </div>
+      {#  {% if is_granted('ROLE_ADMIN') %} #}
+            <div class="row">
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2>Les Réservations</h2>
+                        <hr>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Salarié</th>
+                                    <th>Début de mission</th>
+                                    <th>Fin de mission</th>
+                                    <th>Date de réservation</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for booking in ad.bookings %}
+                                <tr>
+                                    <td>{{booking.id}}</td>
+                                    <td>{{booking.booker.firstName}} {{booking.booker.lastName}}</td>
+                                    <td>{{booking.startDate | date('d/m/Y')}}</td>
+                                    <td>{{booking.endDate | date('d/m/Y')}}</td>
+                                    <td>{{booking.createdAt | date('d/m/Y H:i')}}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary"> <i class="fas fa-pen"></i> </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="col">
+                    <div class="alert alert-light">
+                        <h2>Les Commentaires</h2>
+                        <hr>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Id</th>
+                                    <th>Salarié</th>
+                                    <th>Note</th>
+                                    <th>Date du commentaire</th>
+                                    <th>Commentaire</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for comment in ad.comments %}
+                                <tr>
+                                    <td>{{comment.id}}</td>
+                                    <td>{{comment.author.firstName}} {{comment.author.lastName}}</td>
+                                    <td>{{comment.rating}}</td>
+                                    <td>{{comment.createdAt | date('d/m/Y H:i')}}</td>
+                                    <td>{{comment.content}}</td>
+                                    <td>
+                                        <a href="#" class="btn btn-primary"> <i class="fas fa-pen"></i> </a>
+                                    </td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+     {#   {% endif %} #}
+            
+            {{ form_end(form)}}
+        </div>
+
+
+
 {% endblock %}
 
 
@@ -21,4 +140,16 @@
 {% block javascripts %}
     <script src="/js/ad.js"> </script> 
        {# script to add new image entry uppon button click #}  
+
+
+       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+<script>
+    $(document).ready(function(){
+        $('#ad_startAdDate, #ad_endAdDate').datepicker({
+            format: 'dd/mm/yyyy',
+  
+            startDate: new Date()
+        });
+    })
+</script>
 {% endblock %}

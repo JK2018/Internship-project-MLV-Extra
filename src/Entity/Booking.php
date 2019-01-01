@@ -34,7 +34,7 @@ class Booking
     /**
      * @ORM\Column(type="datetime")
      * @Assert\Date(message="Attention, la date doit être au bon format !")
-     * @Assert\GreaterThanOrEqual("today", message="La date de debut est invalide!")
+     * @Assert\GreaterThanOrEqual("today", message="La date de debut est invalide!", groups={"front"})
      */
     private $startDate;
 
@@ -159,6 +159,7 @@ class Booking
      * Callback called for each new booking
      * 
      * @ORM\PrePersist
+     * @ORM\PreUpdate
      *
      * @return void
      */

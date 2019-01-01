@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modification de l'utilisateur n° {{user.id}} {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <h1 class="my-5">Modification de l'utilisateur n° {{user.id}} </h1>
+
+
+
+        {{ form_start(form) }}
+
+        {{ form_widget(form) }}
+
+<button type="submit" class="btn btn-success"> Enregistrer les modifications <i class="fas fa-check"></i></button>
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

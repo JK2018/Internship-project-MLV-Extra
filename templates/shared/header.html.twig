@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <a class="navbar-brand" href="">MLV Xtra</a>
+  <a class="navbar-brand py-0" href="#" style="color: secondary;">MLV Xtra</a>
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01" aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
@@ -7,11 +7,27 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ path('homepage') }}">Accueil</a>
+        <a class="nav-link" href="{{ path('homepage') }}">ACCUEIL</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{{ path('ads_index') }}">Extras</a>
+        <a class="nav-link" href="{{ path('ads_index') }}">EXTRAS</a>
       </li>
+      {% if is_granted('ROLE_ADMIN') %}
+        
+          <li>
+            <a href="{{ path('admin_ads_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-chart-line"></i> DASHBOARD</a>
+          </li>
+          <li>
+            <a href="{{ path('admin_booking_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-folder"></i> RESERVATIONS</a>
+          </li>
+          <li>
+            <a href="{{ path('admin_comments_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-comments"></i> COMMENTAIRES</a>
+          </li>
+          <li>
+            <a href="{{ path('admin_user_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-users"></i> UTILISATEURS</a>
+          </li>
+        
+      {% endif %}
     </ul>
     <ul class="navbar-nav ml-auto">
     {% if app.user %}
