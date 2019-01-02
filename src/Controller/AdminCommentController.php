@@ -16,12 +16,20 @@ class AdminCommentController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/comments", name="admin_comments_index")
+     * @Route("/admin/comments/{page<\d+>?1}", name="admin_comments_index")
      */
-    public function index(CommentRepository $repo)
+    public function index(CommentRepository $repo, $page) 
     {
+
+        $limit = 10;
+        $start = $page * 10 - 10; //determins the offset for pagination.
+        $total = count($repo->findAll());
+        $pages = ceil($total / $limit);// rounds number above.
+
         return $this->render('admin/comment/index.html.twig', [
-            'comments' => $repo->findAll(),
+            'comments' => $repo->findBy([], [], $limit, $start),
+            'pages' => $pages,
+            'page' => $page
         ]);
     }
 

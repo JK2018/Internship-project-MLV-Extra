@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Role;
 use App\Entity\User;
 use App\Form\AdminUserType;
 use App\Repository\UserRepository;
@@ -15,13 +16,21 @@ class AdminUserController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/users", name="admin_user_index")
+     * @Route("/admin/users/{page<\d+>?1}", name="admin_user_index")
      * 
      */
-    public function index(UserRepository $repo)
+    public function index(UserRepository $repo, $page)
     {
+
+        $limit = 10;
+        $start = $page * 10 - 10;
+        $total = count($repo->findAll());
+        $pages = ceil($total / $limit);
+        
         return $this->render('admin/user/index.html.twig', [
-            'users' => $repo->findAll(),
+            'users' => $repo->findBy([], [], $limit, $start),
+            'page' => $page,
+            'pages' => $pages
         ]);
     }
 

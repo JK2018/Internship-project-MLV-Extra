@@ -16,12 +16,20 @@ class AdminBookingController extends AbstractController
 {
     /**
      * @IsGranted("ROLE_ADMIN")
-     * @Route("/admin/bookings", name="admin_booking_index")
+     * @Route("/admin/bookings/{page<\d+>?1}", name="admin_booking_index")
      */
-    public function index(BookingRepository $repo)
+    public function index(BookingRepository $repo, $page)
     {
+
+        $limit = 10;
+        $start = $page * 10 - 10; //determins the offset for pagination.
+        $total = count($repo->findAll());
+        $pages = ceil($total / $limit);// rounds number above.
+
         return $this->render('admin/booking/index.html.twig', [
-            'bookings' => $repo->findAll(),
+            'bookings' => $repo->findBy([], [], $limit, $start),
+            'pages' => $pages,
+            'page' => $page
         ]);
     }
 
