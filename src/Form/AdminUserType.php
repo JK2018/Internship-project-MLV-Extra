@@ -26,11 +26,12 @@ class AdminUserType extends ApplicationType
             ->add('introduction',TextType::class, $this->labelPlaceholderConfig("Poste occupé", "Nouvelle fonction"))
             ->add('text', TextareaType::class, $this->labelPlaceholderConfig("Décription (facultatif)", "Nouvelle description  ",['required' => false]))
             ->add('tel', IntegerType::class, $this->labelPlaceholderConfig("Téléphone", "Saisissez le nouveau numéro"))
-          /*  ->add('userRole', TextType::class, [
+          /*  ->add('userRole', EntityType::class, [
+                    'class' => UserRole::class,
                     'label' => "Niveau d'authorisation de l'utilisateur",
                 ])
         */;
-    }
+    } 
 
     public function configureOptions(OptionsResolver $resolver)
     {

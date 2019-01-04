@@ -7,15 +7,18 @@
   <div class="collapse navbar-collapse" id="navbarColor01">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item active">
-        <a class="nav-link" href="{{ path('homepage') }}">ACCUEIL</a>
+        <a class="nav-link ml-5" href="{{ path('homepage') }}">ACCUEIL</a>
       </li>
       <li class="nav-item active">
-        <a class="nav-link" href="{{ path('ads_index') }}">EXTRAS</a>
+        <a class="nav-link mr-5" href="{{ path('ads_index') }}">EXTRAS</a>
       </li>
       {% if is_granted('ROLE_ADMIN') %}
         
           <li>
-            <a href="{{ path('admin_ads_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-chart-line"></i> DASHBOARD</a>
+            <a href="{{ path('admin_dashboard') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-chart-line"></i> DASHBOARD</a>
+          </li>
+          <li>
+            <a href="{{ path('admin_ads_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-chart-line"></i> OFFRES</a>
           </li>
           <li>
             <a href="{{ path('admin_booking_index') }}" class="nav-link" style="color: goldenrod;"> <i class="fas fa-folder"></i> RESERVATIONS</a>

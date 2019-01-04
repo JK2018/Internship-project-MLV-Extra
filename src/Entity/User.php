@@ -99,7 +99,7 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity="App\Entity\Booking", mappedBy="booker")
      */
     private $bookings;
-
+ 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="author", orphanRemoval=true)
      */
@@ -399,6 +399,6 @@ class User implements UserInterface
             }
         }
 
-        return $this;
+        return $this; 
     }
 }

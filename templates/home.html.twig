@@ -21,108 +21,37 @@
                 </div>  
         <h2 class="h1 mb-3 mt-3"> Nos magasins star</h2>
 
-        {# FIRST BLOCK OF STAR CARDS #}
+        {# FIRST BLOCK OF ADS STAR CARDS #}
                 <div class="row">
-                        <div class="col-md-4">
-                                <div class="card bg-light mb-3">
-                                        <div class="card-header text-center">
-                                        3 jour(s), <strong>4 heures / jour</strong> <br>
-                                        <small> pas encore noté </small>
-                                        </div>
-                                        <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
-                                        <div class="card-body">
-                                        <h4 class="card-title">
-                                        job de fou!
-                                        </h4>
-                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                                        {% if app.user %}
-                                                <a href="#" class="btn btn-secondary">En savoir plus</a>
-                                        {% else %}
-                                        <a href="{{ path('account_login') }}" class="btn btn-secondary">En savoir plus</a>
-                                        {% endif %} 
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="card bg-light mb-3">
-                                        <div class="card-header text-center">
-                                        3 jour(s), <strong>4 heures / jour</strong> <br>
-                                        <small> pas encore noté </small>
-                                        </div>
-                                        <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
-                                        <div class="card-body">
-                                        <h4 class="card-title">
-                                        job de fou!
-                                        </h4>
-                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                                        {% if app.user %}
-                                                <a href="#" class="btn btn-secondary">En savoir plus</a>
-                                        {% else %}
-                                        <a href="{{ path('account_login') }}" class="btn btn-secondary">En savoir plus</a>
-                                        {% endif %} 
-                                        </div>
-                                </div>
-                        </div>
-                        <div class="col-md-4">
-                                <div class="card bg-light mb-3">
-                                        <div class="card-header text-center">
-                                        3 jour(s), <strong>4 heures / jour</strong> <br>
-                                        <small> pas encore noté </small>
-                                        </div>
-                                        <img src="http://placehold.it/1000x400" alt="image de l'appartement" style="height: 200px; width:100%; display:block;">
-                                        <div class="card-body">
-                                        <h4 class="card-title">
-                                        job de fou!
-                                        </h4>
-                                        <p class="card-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam et laboriosam dignissimos commodi facilis eaque quidem doloremque tempore exercitationem nulla!</p>
-                                        {% if app.user %}
-                                                <a href="#" class="btn btn-secondary">En savoir plus</a>
-                                        {% else %}
-                                        <a href="{{ path('account_login') }}" class="btn btn-secondary">En savoir plus</a>
-                                        {% endif %}                                        
-                                        </div>
-                                </div>
-                        </div>
+                        {% for data in ads %}
+                                {% include 'ad/refactoredAdsList.html.twig' with {'ad': data.annonce} %}
+                        {% endfor %} 
                 </div>
 
         <h2 class="h1 mt-3 mb-3"> Nos employés star</h2>
 
-        {# SECOND BLOCK OF STAR CARDS #}
+        {# SECOND BLOCK OF EMPLOYEE STAR CARDS #}
                 <div class="row">
+                {% for worker in bestWorker %}
                         <div class="col">
                                 <div class="card border-secondary mb-3">
                                         <div class="card-body">
-                                                <h4 class="card-title"> nom de l'agent </h4>
+                                                <h4 class="card-title"> {{worker.firstName}} {{worker.lastName}} </h4>
                                                 <hr>
                                                 <div class="card-text">
-                                                        <img src="http://placehold.it/64x64" alt="Avatar de JK" class="float-left mr-3">
+                                                        <img src="{{worker.picture}}" alt="Avatar de salarié" class="float-left mr-3">
+                                                        <h5>A effectué <span class="badge-dark"><strong> {{worker.total}}</strong></span> Heures sup ! <i class="fas fa-thumbs-up"></i> </h5>
                                                         <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, assumenda.</p>
                                                         {% if app.user %}
-                                                                <a href="#" class="btn btn-success float-right">En savoir plus</a>
+                                                                <a href="{{ path('user_show', {'slug': worker.slug}) }}" class="btn btn-success float-right">En savoir plus</a>
                                                         {% else %}
-                                                        <a href="{{ path('account_login') }}" class="btn btn-success float-right">En savoir plus</a>
+                                                                <a href="{{ path('account_login') }}" class="btn btn-success float-right">En savoir plus</a>
                                                         {% endif %}
                                                 </div>
                                         </div>
                                 </div>
                         </div>
-                        <div class="col">
-                                <div class="card border-secondary mb-3">
-                                        <div class="card-body">
-                                                <h4 class="card-title"> nom de l'agent </h4>
-                                                <hr>
-                                                <div class="card-text">
-                                                        <img src="http://placehold.it/64x64" alt="Avatar de JK" class="float-left mr-3">
-                                                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Accusantium, assumenda.</p>
-                                                        {% if app.user %}
-                                                                <a href="#" class="btn btn-success float-right">En savoir plus</a>
-                                                        {% else %}
-                                                        <a href="{{ path('account_login') }}" class="btn btn-success float-right">En savoir plus</a>
-                                                        {% endif %}
-                                                </div>
-                                        </div>
-                                </div>
-                        </div>
+                {% endfor %}
                 </div>
 
 
