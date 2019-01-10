@@ -6,12 +6,13 @@
         <meta charset="UTF-8">
 
         <link rel="stylesheet" href="/css/bootstrap.min.css">
-        <link rel="stylesheet" href="/css/app.css">
+        <link rel="stylesheet" href="{{ asset('build/css/app.css') }}">
+        {#<link rel="stylesheet" href="/css/app.css">#}
         {% block stylesheets %}{% endblock %}
     </head>
 
 
-    {% block title %} Connexion au site {% endblock %}
+    {% block title %} {% endblock %}
 
     
     <body>

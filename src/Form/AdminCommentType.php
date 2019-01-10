@@ -19,7 +19,7 @@ class AdminCommentType extends AbstractType
                 'attr' => [ 'placeholder' => "Modifiez / Corrigez le contenu inaproprié de ce commentaire"]
             ])
 
-        ;
+        ; 
     }
 
     public function configureOptions(OptionsResolver $resolver)

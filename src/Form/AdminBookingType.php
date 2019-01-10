@@ -26,7 +26,7 @@ class AdminBookingType extends AbstractType
                 'label' => 'Dernier jour travaillé'
             ])
             ->add('comment', TextType::class, [
-                'label' => 'Commeentaire',
+                'label' => 'Commentaire',
             ])
             ->add('booker', EntityType::class, [
                 'class' => User::class,

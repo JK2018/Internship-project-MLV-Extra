@@ -58,13 +58,13 @@ class AdminUserController extends AbstractController
         
         $this->addFlash(
             'success',
-            "Le profil utilisateur n° {$booking->getId()} a bien été modifiée !"
+            "Le profil utilisateur n° {$user->getId()} a bien été modifiée !"
         );
         return $this->redirectToRoute("admin_user_index");
     }
 
         return $this->render('admin/user/edit.html.twig', [
-            'form' => $form->createView(),
+            'form' => $form->createView(), 
             'user' => $user
         ]);
     }

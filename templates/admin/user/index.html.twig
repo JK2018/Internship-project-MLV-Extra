@@ -16,7 +16,6 @@
                     <th>Téléphone</th>
                     <th>E-mail</th>
                     <th>Poste Occupé</th>
-                    <th>Détails</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -30,7 +29,6 @@
                     <td>{{user.tel}}</td>
                     <td>{{user.email}}</td>
                     <td>{{user.introduction}}</td>
-                    <td>{{user.text}}</td>
                     {% if user.id != 130 %}
                     <td>
                         <a href="{{ path('admin_user_edit', {'id': user.id}) }}" class="btn btn-primary"> <i class="fas fa-edit"></i></a>

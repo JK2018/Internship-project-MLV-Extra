@@ -75,7 +75,7 @@ class AdType extends ApplicationType
             ->add('startAdDate', TextType::class, $this->labelPlaceholderConfig("Date de démarrage",
             "Premier jour travaillé")
                   )
-            ->add('endAdDate', TextType::class, $this->labelPlaceholderConfig("Date de fin (inclu)",
+            ->add('endAdDate', TextType::class, $this->labelPlaceholderConfig("Date de fin (inclus)",
             "Dernier jour travaillé")
                   )
             ->add( //created new form class ImageType 

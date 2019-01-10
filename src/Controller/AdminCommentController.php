@@ -57,6 +57,7 @@ class AdminCommentController extends AbstractController
                 'success',
                 "Le commentaire numéro {$comment->getId()} a bien été modifié !"
             );
+            return $this->redirectToRoute("admin_comments_index");
         }
 
         return $this->render('admin/comment/edit.html.twig', [
@@ -85,7 +86,7 @@ class AdminCommentController extends AbstractController
         $manager->flush();
 
         $this->addFlash(
-            'success',
+            'success', 
             "Le Commentaire n° {$id} a bien été supprimé !"
         );
 

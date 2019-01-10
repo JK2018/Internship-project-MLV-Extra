@@ -76,7 +76,7 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\Length(min = 10, max=10, minMessage="Le numéro de téléphone doit être sans espaces!", maxMessage="Le numéro de téléphone doit être sans espaces!", exactMessage="Le numéro de téléphone doit être sans espaces!")
+     * @Assert\Length(min = 10, max=10, minMessage="Le numéro de téléphone doit faire 10 caractères!", maxMessage="Le numéro de téléphone doit faire 10 caractères!")
      */
     private $tel;
 

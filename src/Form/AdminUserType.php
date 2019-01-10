@@ -29,7 +29,7 @@ class AdminUserType extends ApplicationType
           /*  ->add('userRole', EntityType::class, [
                     'class' => UserRole::class,
                     'label' => "Niveau d'authorisation de l'utilisateur",
-                ])
+                ]) 
         */;
     } 
 

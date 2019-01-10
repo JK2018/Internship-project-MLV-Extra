@@ -18,7 +18,7 @@ class AppFixtures extends Fixture
     
     private $encoder;
 
-    //constructor so we can user $encoder
+    //constructor so we can use $encoder
     public function __construct(UserPasswordEncoderInterface $encoder){
         $this->encoder = $encoder;
     }
@@ -27,7 +27,6 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager)
     {
         $faker = Factory::create('FR-fr');
-
 
         $adminRole = new Role();
         $adminRole->setTitle('ROLE_ADMIN');
@@ -55,7 +54,7 @@ class AppFixtures extends Fixture
         for($i=1; $i<=10; $i++){
             $user = new User();
             $gender = $faker->randomElement($genders);
-            $picture='https://randomuser.me/api/portraits/'; // random avatar pics
+            $picture='https://randomuser.me/api/portraits/'; // random avatar pics website, very handy!
             $picture = $picture . ($gender == 'male' ? 'men/' : 'women/') . mt_rand(1, 99) . '.jpg';
 
             $hash = $this->encoder->encodePassword($user, 'password');

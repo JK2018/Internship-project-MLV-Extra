@@ -36,8 +36,8 @@
                         <span class="badge badge-primary rounded">{{ad.ratingAvg | number_format(1, ',',' ')}}</span>
                     </td>
                     <td>
-                        <a href="#" class="btn btn-primary"> <i class="fas fa-edit"></i></a>
-                        <a href="#" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
+                        <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary"> <i class="fas fa-edit"></i></a>
+                        <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger"> <i class="fas fa-trash"></i></a>
                     </td>
                 </tr>
                 {% endfor %}

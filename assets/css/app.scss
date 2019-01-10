@@ -1,3 +1,6 @@
+@import url('./bootstrap.min.css');
+
+
 div.container, div.container-fluid{
     margin-top: 20px;
 }
@@ -6,28 +9,37 @@ div.ad-title{
     padding: 2em;
     background-size: cover;
     background-position: center center;
+
+    h1, p {
+        color : rgb(255, 255, 255);
+        text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)
+    }
+    .btn {
+        margin-top: 1.2em;
+        font-size: 1.5em;
+        line-height: 1.5em;
+    }
 }
 
-div.ad-title h1, div.ad-title p{
-    color : rgb(255, 255, 255);
-    text-shadow: 3px 3px 3px rgba(0, 0, 0, 0.5)
-}
 
 .avatar{
     max-width: 128px;
     max-height: 128px;
     border-radius: 50%;
+
+    &.avatar-medium{
+        max-width: 100px;
+        max-height: 100px; 
+    }
+    &.avatar-mini{
+        max-width: 24px;
+        max-height: 24px;
+    }
 }
 
-.avatar-medium{
-    max-width: 100px;
-    max-height: 100px;
-}
 
-.avatar-mini{
-    max-width: 24px;
-    max-height: 24px;
-}
+
+
 
 div.card-body, div.card-header{
     background-color : rgb(70, 70, 70);
@@ -46,19 +58,18 @@ span.rating i {
     color: goldenrod;
 }
 
-div.ad-title .btn  {
-    margin-top: 1.2em;
-    font-size: 1.5em;
-    line-height: 1.5em;
-}
 
-.alert a {
+
+.alert{ 
+    a {
     text-decoration: none;
+    }
+    .btn {
+        color: white;
+    }
 }
 
-.alert .btn {
-    color: white;
-}
+
 
 .loginTitle-big, .loginTitle-medium{
     color: #272B30;
