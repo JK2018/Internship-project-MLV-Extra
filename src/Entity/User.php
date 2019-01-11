@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraints as Assert; //in order to put constra
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * orm pour executer la fonction generateSlug
+ * 
  * @ORM\HasLifecycleCallbacks()
  * UserInterface so that we can use encodePassword
  * 
