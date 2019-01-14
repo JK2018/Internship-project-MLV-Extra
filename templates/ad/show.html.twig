@@ -9,7 +9,7 @@
     <div class="container mt-5 mb-5">
         <h1> {{ad.title}} </h1>
         <p>{{ad.introduction}}</p>
-        <p class="h2"> <strong> Extra du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}}</strong>, soit <strong>{{ad.hoursPerDay}} heures / jour</strong></p>
+        <p class="h2"> <strong> Extra du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}} </strong>, soit <strong>{{ad.hoursPerDay}} heures / jour</strong> </p>
         <a href="{{ path('booking_create', {'slug': ad.slug})}}" class="btn btn-primary">Réserver!</a>
         {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary"> Modifier</a>
@@ -21,15 +21,15 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 mb-3">
-
             {{ad.content | raw}}
-            {# ------------- CAROUSEL ------------ #}
+
+            {# --- CAROUSEL --- #}
             <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
                 <ol class="carousel-indicators">
                     {% for image in ad.images %}
-                    <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="{{ loop.index0 }}" {% if loop.first %}class="active"{% endif %}></li>
                     {% endfor %}
-                </ol>   
+                </ol>
                 <div class="carousel-inner">
                     {% for image in ad.images %}
                         <div class="carousel-item {% if loop.first %}active{% endif %}">
@@ -46,7 +46,7 @@
                     <span class="sr-only">Next</span>
                 </a>
             </div>
-            {# ------------- END CAROUSEL ------------ #}
+            {# --- /CAROUSEL --- #}
             <hr>
             {% if ad.comments | length > 0 %}
                 <h2 class="mb-3">Commentaires des salariés :</h2>
@@ -60,7 +60,7 @@
                             <div class="col">
                                 {% include 'shared/rating.html.twig' with {'rating': ad.ratingAvg} %}
                                 <br>
-                                <small>Moyenne calculée sur {{ad.comments | length}} avis ! </small>
+                                <small>Moyenne calculée sur {{ ad.comments | length }} avis ! </small>
                             </div>
                         </div>
                     </h4>
@@ -68,10 +68,8 @@
 
                 {% for comment in ad.comments %}
                     <div class="bg-light rounded mb-3 py-3 px-3">
-                        <strong>{{ comment.author.firstName}} {{ comment.author.lastName}}</strong> a dit :
-                        <blockquote>
-                            {{comment.content}}
-                        </blockquote>
+                        <strong> {{ comment.author.firstName}} {{ comment.author.lastName }} </strong> a dit :
+                        <blockquote> {{ comment.content }} </blockquote>
                         <strong>Note donnée :</strong> 
                         {% include 'shared/rating.html.twig' with {'rating': comment.rating} %}
                     </div>
