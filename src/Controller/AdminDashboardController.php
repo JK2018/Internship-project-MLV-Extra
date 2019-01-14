@@ -31,7 +31,7 @@ class AdminDashboardController extends AbstractController
         return $this->render('admin/dashboard/index.html.twig', [
             'stats' => [
                 'users' => $users,
-                'ads' => $ads, 
+                'ads' => $ads,  
                 'bookings' => $bookings, 
                 'comments' => $comments
             ],
