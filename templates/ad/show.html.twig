@@ -1,7 +1,9 @@
 
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ad.title}} {% endblock %}
+{% block title %} 
+    {{ad.title}} 
+{% endblock %}
 
 {% block body %}
 
@@ -9,11 +11,15 @@
     <div class="container mt-5 mb-5">
         <h1> {{ad.title}} </h1>
         <p>{{ad.introduction}}</p>
-        <p class="h2"> <strong> Extra du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}} </strong>, soit <strong>{{ad.hoursPerDay}} heures / jour</strong> </p>
+        <p class="h2"> 
+            <strong> Extra du {{ad.startAdDate|date('d/m/Y')}} au {{ad.endAdDate|date('d/m/Y')}} </strong>, soit 
+            <strong>{{ad.hoursPerDay}} heures / jour</strong> 
+        </p>
         <a href="{{ path('booking_create', {'slug': ad.slug})}}" class="btn btn-primary">Réserver!</a>
         {% if is_granted('ROLE_ADMIN') %}
         <a href="{{ path('ads_edit', {'slug': ad.slug}) }}" class="btn btn-primary"> Modifier</a>
-        <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" onclick="return confirm(`Êtes vous sur de vouloir supprimer l'Xtra : {{ ad.title }} ?`)"> Supprimer!</a>
+        <a href="{{ path('ads_delete', {'slug': ad.slug}) }}" class="btn btn-danger" 
+        onclick="return confirm(`Êtes vous sur de vouloir supprimer l'Xtra : {{ ad.title }} ?`)"> Supprimer!</a>
         {% endif %}
     </div>
 </div>
@@ -81,10 +87,14 @@
         <div class="col">
             <div class="row">
                 <div class="col-4 mb-3">
-                   <a href="{{ path('user_show', {'slug': ad.author.slug}) }}"> <img src="{{ ad.author.picture }}" class="avatar avatar-medium" alt"Photo de profil {{ ad.author.firstName }} {{ ad.author.lastName }}"> </a>
+                   <a href="{{ path('user_show', {'slug': ad.author.slug}) }}"> 
+                        <img src="{{ ad.author.picture }}" class="avatar avatar-medium" alt"Photo de profil {{ad.author.firstName}} {{ad.author.lastName}}">
+                    </a>
                 </div>
                 <div class="col">
-                    <a href="{{ path('user_show', {'slug': ad.author.slug}) }}"><h3> {{ ad.author.firstName }} {{ ad.author.lastName }} </h3></a>
+                    <a href="{{ path('user_show', {'slug': ad.author.slug}) }}">
+                        <h3> {{ ad.author.firstName }} {{ ad.author.lastName }} </h3>
+                    </a>
                     <span class="badge badge-primary"> {{ ad.author.ads | length }} annonces</span>
                 </div>
             </div>
@@ -93,9 +103,5 @@
         </div>
     </div>
 </div>
-
-
-
-
  
 {% endblock %}

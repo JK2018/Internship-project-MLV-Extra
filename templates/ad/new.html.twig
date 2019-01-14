@@ -1,9 +1,11 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Création d'un nouvel Extra{% endblock %}
+{% block title %}
+    Création d'un nouvel Extra
+{% endblock %}
 
 {% block stylesheets %}
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/css/bootstrap-datepicker.min.css" />
 {% endblock %}
 
 {% form_theme form 'ad/refactoredFormAd.html.twig' %}
@@ -38,14 +40,12 @@
                 </div>
                 <div class="alert alert-light">
                     <div class="row ml-1">
-                        <h4> Vous êtes sur le pount de créer un nouvel Xtra! </h4>
+                        <h4> Vous êtes sur le point de créer un nouvel Extra! </h4>
                         <button type="submit" class="btn btn-success mt-2 mb-2">  Enregistrer cet Extra <i class="fas fa-check"></i></button>
                     </div>  
                 </div>
             </div>
         </div>
-
-        
         {{ form_end(form)}}
     </div>
 {% endblock %}
@@ -53,20 +53,20 @@
 
 
 {% block javascripts %}
-    <script src="/js/ad.js"> //script to add new image entry uppon button click. 
+    {# script to add a new image enter uppon click #}
+    <script src="/js/ad.js"> script to add new image entry uppon button click. 
     </script>
 
 
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
-<script>
-    $(document).ready(function(){
-        $('#ad_startAdDate, #ad_endAdDate').datepicker({
-            format: 'dd/mm/yyyy',
-  
-            startDate: new Date()
-        });
-    })
-</script>
+    {# script to enable calendar uppon click #}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.8.0/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            $('#ad_startAdDate, #ad_endAdDate').datepicker({
+                format: 'dd/mm/yyyy',
+    
+                startDate: new Date()
+            });
+        })
+    </script>
 {% endblock %}

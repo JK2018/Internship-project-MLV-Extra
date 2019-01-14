@@ -21,9 +21,6 @@ class AccountController extends Controller
 {
 
 
-
-
-
     /**
      * leads to the login form.
      * symfony deals with logging in , check security.yaml
@@ -43,23 +40,14 @@ class AccountController extends Controller
 
 
 
-
-
-
     /**
      * gives user ability to logout.
      * @Route("/logout", name="account_logout")
-     * 
-     *
      * @return void
      */
     public function logout(){
         //symfony deals with logging out , check security.yaml
     }
-
-
-
-
 
 
 
@@ -72,7 +60,7 @@ class AccountController extends Controller
     public function register(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
         $user = new User();
 
-        //to generate form
+        //to generate form 
         $form = $this->createForm(RegistrationType::class, $user);
 
         //to persist user data while hashing the pw
@@ -83,11 +71,17 @@ class AccountController extends Controller
 
             $manager->persist($user);
             $manager->flush();
+            /**
+            * in this context, the result to persist($user) method is equal to the following SQL query:
+            * INSERT INTO 'user'( 'first_name', 'last_name', 'email', 'picture', 'hash', 'introduction', 'text', 'tel', 'slug') 
+            * VALUES ('?','?','?','?','?','?','?','?','?')
+            * and values would be set via bindParam PDO statement.
+            * In our case, its Doctrine that handles the query.
+            */
 
             $this->addFlash('success', "Votre compte a bien été créé, vous pouvez maintenant vous connecter !");
             return $this->redirectToRoute('account_login');
         }
-
         return $this->render('account/registration.html.twig', [
             'form' => $form->createView()
         ]);
@@ -98,11 +92,9 @@ class AccountController extends Controller
 
 
     /**
-     * leads to the profile editing form
+     * leads to the profile editing form where a user can edit his own profile
      * @Route("/account/profile", name="account_profile")
-     *
      * @IsGranted("ROLE_USER")
-     * 
      * @return Response
      */
     public function profile(Request $request, ObjectManager $manager){
@@ -116,10 +108,16 @@ class AccountController extends Controller
 
             $manager->persist($user);
             $manager->flush();
+            /**
+            * in this context, the result to persist($user) method is equal to the following SQL query:
+            * UPDATE 'user' SET 'first_name'='?','last_name'='?','email'='?','picture'='?','introduction'='?','text'='?','tel'='?' WHERE 'id'='?'
+            * and values would be set via bindParam PDO statement.
+            * In our case, its Doctrine that handles the query.
+            */
+
 
             $this->addFlash('success', "Les modifications ont bien été apportés à votre profil !");
         }
-
         return $this->render('account/profile.html.twig', [
             'form' => $form->createView()
             ]);
@@ -131,12 +129,9 @@ class AccountController extends Controller
 
 
     /**
-     * leads to PW update form
-     * 
+     * leads to PW update form where the user can change his password
      * @Route("/account/password-update", name="account_password")
-     * 
      * @IsGranted("ROLE_USER")
-     * 
      * @return Response
      */
     public function updatePassword(Request $request, ObjectManager $manager, UserPasswordEncoderInterface $encoder){
@@ -159,10 +154,18 @@ class AccountController extends Controller
                 $manager->persist($user);
                 $manager->flush();
                 $this->addFlash('success', "Votre mot de passe a bien été modifié !");
+                /**
+                * in this context, the result to persist($user) method is equal to the following combination of SQL queries:
+                * SELECT 'hash' FROM 'user' WHERE 'id'= '?'
+                * then we would need to decode the hash, compare it with 'oldPassword' feild from the form
+                * then hash the new password before finally beine able to persist it with the following query.
+                * UPDATE 'user' SET 'hash'='?' WHERE 'id'='?'
+                * and values would be set via bindParam PDO statement.
+                * In our case, its Doctrine that handles the query.
+                */
             }
             return $this->redirectToRoute('homepage');
         }
-
         return $this->render('account/password.html.twig', [
             'form' => $form->createView()
         ]);
@@ -173,26 +176,20 @@ class AccountController extends Controller
 
     /**
      * leads to app.user s page
-     *
      * @Route("/account", name="account_index")
-     * 
      * @IsGranted("ROLE_USER")
-     * 
      * @return Response
      */
     public function myAccount(){
         return $this->render('user/index.html.twig', [
             'user' => $this->getUser()
         ]);
-
-
     }
 
 
 
     /**
      * list of all bookings for a user
-     * 
      * @Route("/account/bookings", name="account_bookings")
      * @IsGranted("ROLE_USER")
      * @return Response
