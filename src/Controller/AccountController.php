@@ -20,7 +20,6 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 class AccountController extends Controller
 {
 
-
     /**
      * leads to the login form.
      * symfony deals with logging in , check security.yaml
@@ -48,7 +47,6 @@ class AccountController extends Controller
     public function logout(){
         //symfony deals with logging out , check security.yaml
     }
-
 
 
 
@@ -90,7 +88,6 @@ class AccountController extends Controller
 
 
 
-
     /**
      * leads to the profile editing form where a user can edit his own profile
      * @Route("/account/profile", name="account_profile")
@@ -122,9 +119,6 @@ class AccountController extends Controller
             'form' => $form->createView()
             ]);
     }
-
-
-
 
 
 
@@ -170,7 +164,6 @@ class AccountController extends Controller
             'form' => $form->createView()
         ]);
     }
-
 
 
 

@@ -35,13 +35,6 @@ class AdType extends ApplicationType
                   $this->labelPlaceholderConfig('Titre - Nom du site', 'Définissez le nom du magasin (ou site)')
                   )
                   //slug feild unneeded since slug is automatically generated with title.
-           /* ->add(
-                'slug',
-                TextType::class,
-                $this->getConfiguration("Adresse web", "Tapez l'adresse du site (automatique)", [
-                    'required' => false
-                ])
-            )*/
             ->add(
                 'introduction',
                  TextType::class,
@@ -57,11 +50,6 @@ class AdType extends ApplicationType
                  UrlType::class,
                   $this->labelPlaceholderConfig('Url Photo Principale' , 'Url de la photo principale')
                   )
-           /* ->add(
-                'daysPerMission',
-                 IntegerType::class,
-                  $this->labelPlaceholderConfig('Nombre de jours', 'Durée totale de la mission (en jours)')
-                  )*/
             ->add(
                 'hoursPerDay',
                  IntegerType::class,

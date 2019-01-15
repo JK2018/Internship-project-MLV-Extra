@@ -19,17 +19,21 @@ use Doctrine\ORM\Query\Expr\OrderBy;
 class AdController extends AbstractController
 {
     /**
-     * @Route("/ads", name="ads_index")
+     * leads to the page where all the ads are listed and accessible to all users.
      * 
+     * @Route("/ads", name="ads_index")
      * @IsGranted("ROLE_USER")
      */
     public function index(AdRepository $repo)
     {
-        //$repo = $this->getDoctrine()->getRepository(Ad::class);
-        $ads = $repo->findAll();
+        $ads = $repo->findAll(); 
+        /**
+         * in this context, the result to findAll() method is equal to the following SQL query:
+         * SELECT * FROM ad
+         * In our case, its Doctrine that handles the query.
+         */
 
         return $this->render('ad/index.html.twig', [
-           // 'controller_name' => 'AdController',
            'ads' => $ads
         ]);
     }
@@ -37,14 +41,12 @@ class AdController extends AbstractController
 
 
     /**
-     * create a new ad and redirects to the created ad if valid.
+     * Creates a new ad and redirects user to the created ad if valid.
      * placed above show function so that paramConverter does now interfere thinking new is a slug.
+     * Only admins may create ads!
      *
      * @Route("/ads/new", name="ads_create")
-     * 
-     * Only admins may create ads!
      * @IsGranted("ROLE_ADMIN")
-     * 
      * @return Response
      */
     public function create(Request $request, ObjectManager $manager){
@@ -56,16 +58,33 @@ class AdController extends AbstractController
 
         if($form->isSubmitted() && $form->isValid()){
            
-            // for each image we add it to the ad and persist the image to prevent (non persisted entities)error when submitting form
+            // for each image we add it to the ad and persist the image to prevent (non persisted entities)error when submitting the form
             foreach($ad->getImages() as $image){
                 $image->setAd($ad);
                 $manager->persist($image);
+                /**
+                * in this context, the result to findAll() method is equal to the following SQL query:
+                * INSERT INTO `image`( `ad_id`, `url`, `caption`) VALUES (?,?,?)
+                * In our case, its Doctrine that handles the query.
+                */
             }
 
-            $ad->setAuthor($this->getUser());
+            $ad->setAuthor($this->getUser()); 
 
             $manager->persist($ad);
             $manager->flush();
+            /**
+            * in this context, the result to persist($ad) method is equal to the following SQL query:
+            * INSERT INTO `ad`( `title`, `hours_per_day`, `introduction`, `content`, `cover_image`, `author_id`, `start_ad_date`, `end_ad_date`) 
+            * VALUES (?,?,?,?,?,?,?,?)
+            * and values would be set via bindParam PDO statement.
+            * In our case, its Doctrine that handles the query.
+            */
+
+
+            /**
+             * 
+             */
 
             $this->addFlash(
                 'success', //label
